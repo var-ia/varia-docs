@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = join(__dirname, 'docs');
 const DIST_DIR = join(__dirname, 'dist');
 const ASSETS_DIR = join(__dirname, 'assets');
+const BASE = process.env.BASE || '/varia-docs/';
 
 const NAV = [
   { title: 'Home',             slug: 'index' },
@@ -43,7 +44,7 @@ function resolveTitle(slug) {
 }
 
 function slugHref(slug) {
-  return slug === 'index' ? '/' : `/${slug}/`;
+  return slug === 'index' ? BASE : `${BASE}${slug}/`;
 }
 
 function renderNav(currentSlug) {
@@ -77,7 +78,7 @@ function wrapHTML(title, content, currentSlug) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} — Varia</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="${BASE}style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
   <meta name="description" content="Varia — Evidence, not truth. What changed?">
 </head>
@@ -86,7 +87,7 @@ function wrapHTML(title, content, currentSlug) {
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/" class="brand">Varia</a>
+        <a href="${BASE}" class="brand">Varia</a>
         <p class="tagline">Evidence, not truth.<br>What changed?</p>
       </div>
       <nav class="sidebar-nav">
@@ -111,10 +112,11 @@ function wrapHTML(title, content, currentSlug) {
 
 function rewriteLink(href) {
   if (!href) return href;
-  if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) return href;
+  if (href.startsWith('http') || href.startsWith('#')) return href;
   href = href.replace(/\.md$/, '/');
-  if (href === 'index/') return '/';
-  return href;
+  if (href === 'index/' || href === 'index') return BASE;
+  if (href.startsWith('/')) return BASE + href.slice(1);
+  return BASE + href;
 }
 
 async function collectFiles(dir, base = '') {
