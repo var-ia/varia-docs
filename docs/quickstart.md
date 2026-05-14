@@ -16,24 +16,26 @@ bun add -g @var-ia/cli
 Or use directly with `npx`:
 
 ```bash
-npx wikihistory analyze --page "Earth"
+npx wikihistory analyze "Earth"
 ```
 
 ## Your first analysis
 
 ```bash
-wikihistory analyze --page "Earth" --limit 10
+wikihistory analyze "Earth"
 ```
 
-This fetches the 10 most recent revisions of the Wikipedia page "Earth" and runs all available analyzers (section changes, citation changes, revert detection, template changes).
+By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth" and runs all available L1 analyzers (section changes, citation changes, revert detection, template changes). Use `--from` and `--to` to scope to a specific revision range.
 
 Output is printed to stdout as structured JSON.
 
 ## Saving output
 
 ```bash
-wikihistory analyze --page "Earth" --limit 50 --output ./output/earth-events.json
+wikihistory export "Earth" --format ndjson > earth-events.jsonl
 ```
+
+Use `wikihistory export` to format output as json, csv, ndjson, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
 
 ## Next steps
 

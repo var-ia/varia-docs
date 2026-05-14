@@ -10,45 +10,50 @@ Packages are published on npm under the `@var-ia` scope. All packages are ESM-on
 
 ```typescript
 import { MediaWikiClient } from "@var-ia/ingestion";
-import { SectionDiffer, CitationTracker, RevertDetector } from "@var-ia/analyzers";
+import { sectionDiffer, citationTracker } from "@var-ia/analyzers";
 import type { EvidenceEvent } from "@var-ia/evidence-graph";
 
-const client = new MediaWikiClient({ api: "https://en.wikipedia.org/w/api.php" });
-const differ = new SectionDiffer();
-const citations = new CitationTracker();
+const client = new MediaWikiClient({ apiUrl: "https://en.wikipedia.org/w/api.php" });
+const revisions = await client.fetchRevisions("Earth");
 
-// Fetch revisions
-const revisions = await client.fetchRevisions({ page: "Earth", limit: 10 });
-
-// Run analysis
 const events: EvidenceEvent[] = [];
-for (const rev of revisions) {
-  events.push(...differ.diff(rev.previous, rev.current));
-  events.push(...citations.diff(rev.previous, rev.current));
+for (let i = 1; i < revisions.length; i++) {
+  events.push(...sectionDiffer.diffSections(
+    sectionDiffer.extractSections(revisions[i - 1].content),
+    sectionDiffer.extractSections(revisions[i].content),
+  ));
+  events.push(...citationTracker.diffCitations(
+    citationTracker.extractCitations(revisions[i - 1].content),
+    citationTracker.extractCitations(revisions[i].content),
+  ));
 }
 ```
 
 ## Storage
 
 ```typescript
-import { EventStore } from "@var-ia/persistence";
+import { Persistence } from "@var-ia/persistence";
 
-const store = new EventStore("varia.db");
-await store.insertEvents(events);
-const saved = await store.getEvents({ page: "Earth" });
+const db = new Persistence({ dbPath: "varia.db" });
+await db.insertEvents(events);
+const saved = await db.getEvents({ pageTitle: "Earth" });
 ```
 
 ## L2 interpretation
 
 ```typescript
-import { createOpenAIAdapter } from "@var-ia/interpreter/openai";
+import { createAdapter } from "@var-ia/interpreter";
+import type { ModelAdapter, InterpretedEvent } from "@var-ia/interpreter";
 
-const adapter = createOpenAIAdapter({
-  model: "gpt-4",
+const adapter: ModelAdapter = createAdapter({
+  provider: "openai",
+  model: "gpt-4o",
   apiKey: process.env.OPENAI_API_KEY,
 });
-const interpreted = await adapter.interpret(events);
+const interpreted: InterpretedEvent[] = await adapter.interpret(events);
 ```
+
+Available providers: `openai`, `anthropic`, `deepseek`, `local`, `byok`. Use `local` with `--router` for Ollama-based open-weight models.
 
 ## Package reference
 
@@ -57,64 +62,85 @@ const interpreted = await adapter.interpret(events);
 Core types, event schemas, and utilities. Zero runtime dependencies.
 
 ```typescript
-import type { EvidenceEvent, EventType } from "@var-ia/evidence-graph";
-import { createClaimIdentity, hashEvent } from "@var-ia/evidence-graph";
+import type { EvidenceEvent, EventType, Revision } from "@var-ia/evidence-graph";
+import { createClaimIdentity, createEventIdentity } from "@var-ia/evidence-graph";
 ```
 
 Key exports:
-- Interface: `EvidenceEvent`
-- Types: `EventType`, `EvidenceLayer`, `PolicyDimension`
-- Utilities: `createClaimIdentity`, `createEventIdentity`, `compareEvents`
+- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`, `ModelInterpretation`
+- Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`
+- Utilities: `createClaimIdentity`, `createEventIdentity`
+- Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
 
 ### `@var-ia/ingestion`
 
 Wikimedia API adapters. Fetches revision history and parses wikitext.
 
 ```typescript
-import { RevisionFetcher } from "@var-ia/ingestion";
-const fetcher = new RevisionFetcher({ wiki: "en.wikipedia.org" });
+import { MediaWikiClient } from "@var-ia/ingestion";
+import type { RevisionFetcher, AuthConfig } from "@var-ia/ingestion";
+
+const client = new MediaWikiClient({ apiUrl: "https://en.wikipedia.org/w/api.php" });
+const revisions = await client.fetchRevisions("Earth");
 ```
 
-Key exports: `RevisionFetcher`, `WikitextParser`, `MediaWikiClient`
+Key exports: `MediaWikiClient` (class), `RevisionFetcher` (interface), `AuthConfig`
 
 ### `@var-ia/analyzers`
 
-Deterministic analyzers for section diffs, citation tracking, revert detection, and template analysis.
+Deterministic analyzers for section diffs, citation tracking, revert detection, and template analysis. Exported as lowercase singleton instances — no construction needed.
 
 ```typescript
-import { SectionDiffer, CitationTracker, RevertDetector, TemplateAnalyzer } from "@var-ia/analyzers";
+import { sectionDiffer, citationTracker, revertDetector, templateTracker } from "@var-ia/analyzers";
+import type { SectionDiffer, CitationTracker, RevertDetector, TemplateTracker } from "@var-ia/analyzers";
 ```
 
-All L1 analyzers share a common interface — receive a pair of revisions and produce an array of `EvidenceEvent`.
+All L1 analyzers share a common pattern — extract from wikitext, diff across revisions, produce `EvidenceEvent` arrays.
 
-Key exports: `SectionDiffer`, `CitationTracker`, `RevertDetector`, `TemplateAnalyzer`
+Key exports:
+- Instances: `sectionDiffer`, `citationTracker`, `revertDetector`, `templateTracker`, `protectionTracker`
+- Builders: `buildSectionLineage`, `buildSourceLineage`, `buildClaimLineage`, `buildWikilinkEvents`, `buildPageMoveEvents`, `buildTalkThreadEvents`, `buildCategoryEvents`, `buildParamChangeEvents`
+- Classifiers: `classifyHeuristic`, `classifyClaimChange`
+- Parsers: `sanitizeWikitext`, `extractHeadingMap`, `extractWikilinks`, `extractCategories`, `countCitations`, `countKeywordMentions`, `deriveSectionHeading`
+- Cross-revision: `correlateTalkRevisions`, `diffObservations`, `parseTalkThreads`, `diffTalkThreads`, `diffTemplateParams`, `diffCategories`, `diffWikilinks`
 
 ### `@var-ia/interpreter`
 
-Pluggable model adapter interface for L2.
+Pluggable model adapter interface for L2. Provider-agnostic factory pattern.
 
 ```typescript
-import type { ModelAdapter } from "@var-ia/interpreter";
-import { createOpenAIAdapter } from "@var-ia/interpreter/openai";
+import { createAdapter } from "@var-ia/interpreter";
+import type { ModelAdapter, ModelConfig, InterpretedEvent, LineageContext } from "@var-ia/interpreter";
+
+const adapter = createAdapter({ provider: "openai", apiKey: "...", model: "gpt-4o" });
 ```
 
-Key exports: `ModelAdapter` (interface), `createOpenAIAdapter`
+Key exports: `createAdapter`, `ModelAdapter` (interface), `ModelConfig`, `InterpretedEvent`, `LineageContext`, `CalibratedAdapter`, `CascadingRouter`, `ConsensusAdapter`, `ModelRouter`
 
 ### `@var-ia/cli`
 
-The `wikihistory` CLI tool. Combines ingestion, analysis, and output.
+The `wikihistory` CLI tool (9 commands: analyze, claim, export, visualize, watch, cron, diff, eval, mcp). See [CLI reference](./cli).
 
 ### `@var-ia/persistence`
 
 SQLite storage adapter (uses `bun:sqlite`).
 
 ```typescript
-import { EventStore } from "@var-ia/persistence";
-const store = new EventStore("varia.db");
+import { Persistence } from "@var-ia/persistence";
+
+const db = new Persistence({ dbPath: "varia.db" });
+await db.insertEvents(events);
+const events = await db.getEvents({ pageTitle: "Earth" });
 ```
 
-Key exports: `EventStore`
+Key exports: `Persistence` (class), `PersistenceAdapter` (interface), `PersistenceConfig`
 
 ### `@var-ia/eval`
 
-Evaluation harness for measuring analyzer and model accuracy against L3 ground truth.
+Evaluation harness for measuring analyzer and model accuracy against L3 ground truth labels.
+
+```typescript
+import { createEvalHarness, runL2Benchmark, validateAgainstGroundTruth } from "@var-ia/eval";
+```
+
+Key exports: `createEvalHarness`, `runL2Benchmark`, `printBenchmarkResult`, `validateAgainstGroundTruth`, `buildL2Dataset`, `GROUND_TRUTH_LABELS`
