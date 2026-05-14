@@ -1,8 +1,8 @@
-# Varia
+# Varia Docs
+
+Public documentation for [Varia](https://github.com/var-ia/var-ia), the open-source deterministic observation engine for public revision histories.
 
 **Varia answers: "What changed?"**
-
-An open-source, deterministic observation engine for public revision histories. Varia tracks what changes in collaborative knowledge spaces — Wikipedia, Fandom wikis, public registries — and makes those changes auditable, analyzable, and interpretable.
 
 ---
 
@@ -33,4 +33,4 @@ Varia is in active development by [NextConsensus](https://nextconsensus.com). Th
 
 ## License
 
-MIT
+CC-BY-4.0
