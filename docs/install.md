@@ -21,13 +21,13 @@ npm install -g @var-ia/cli
 ```bash
 # build from source
 docker build -t varia https://github.com/var-ia/varia.git
-docker run --rm varia analyze "Earth" --depth quick
+docker run --rm varia analyze "Earth" --depth brief
 
 # or build locally from a cloned repo
 git clone https://github.com/var-ia/varia.git
 cd varia
 docker build -t varia .
-docker run --rm varia analyze "Earth" --depth quick
+docker run --rm varia analyze "Earth" --depth brief
 ```
 
 ## From source
