@@ -86,6 +86,18 @@ const revisions = await client.fetchRevisions("Earth");
 
 Key exports: `MediaWikiClient` (class), `RevisionFetcher` (interface), `AuthConfig`
 
+**Wikidata entity mapping** (new):
+
+```typescript
+import { fetchWikidataId, mapPageToEntity, mapPagesToEntities } from "@var-ia/ingestion";
+import type { PageToEntityMap, WikidataEntity, WikidataClaim } from "@var-ia/ingestion";
+
+const qid = await fetchWikidataId("Douglas_Adams"); // "Q42"
+const mapping = await mapPageToEntity("Douglas_Adams"); // { pageTitle, qid, entity }
+```
+
+Key exports: `fetchWikidataId`, `fetchWikidataEntity`, `mapPageToEntity`, `mapPagesToEntities`, `wikidataEntityToEvents`
+
 ### `@var-ia/analyzers`
 
 Deterministic analyzers for section diffs, citation tracking, revert detection, and template analysis. Exported as lowercase singleton instances — no construction needed.
@@ -103,6 +115,7 @@ Key exports:
 - Classifiers: `classifyHeuristic`, `classifyClaimChange`
 - Parsers: `sanitizeWikitext`, `extractHeadingMap`, `extractWikilinks`, `extractCategories`, `countCitations`, `countKeywordMentions`, `deriveSectionHeading`
 - Cross-revision: `correlateTalkRevisions`, `diffObservations`, `parseTalkThreads`, `diffTalkThreads`, `diffTemplateParams`, `diffCategories`, `diffWikilinks`
+- Clusters & activity: `detectEditClusters`, `detectTalkActivitySpikes`
 
 ### `@var-ia/interpreter`
 
@@ -143,4 +156,4 @@ Evaluation harness for measuring analyzer and model accuracy against L3 ground t
 import { createEvalHarness, runL2Benchmark, validateAgainstGroundTruth } from "@var-ia/eval";
 ```
 
-Key exports: `createEvalHarness`, `runL2Benchmark`, `printBenchmarkResult`, `validateAgainstGroundTruth`, `buildL2Dataset`, `GROUND_TRUTH_LABELS`
+Key exports: `createEvalHarness`, `runL2Benchmark`, `printBenchmarkResult`, `validateAgainstGroundTruth`, `buildL2Dataset`, `computeCalibration`, `GROUND_TRUTH_LABELS`, `getGroundTruthById`, `getGroundTruthForPage`

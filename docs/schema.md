@@ -1,6 +1,6 @@
 # Event schema reference
 
-## `EventType` — all 27 event types
+## `EventType` — all 29 event types
 
 ```typescript
 export type EventType =
@@ -40,12 +40,14 @@ export type EventType =
 
   // Content conflict
   | "revert_detected"
+  | "edit_cluster_detected"
 
   // Talk page correlation
   | "talk_page_correlated"
   | "talk_thread_opened"
   | "talk_thread_archived"
-  | "talk_reply_added";
+  | "talk_reply_added"
+  | "talk_activity_spike";
 ```
 
 ## Core interface: `EvidenceEvent`

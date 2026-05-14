@@ -6,6 +6,8 @@ Public documentation for [Varia](https://github.com/var-ia/var-ia), the open-sou
 
 ---
 
+**Live at:** [var-ia.github.io/varia-docs](https://var-ia.github.io/varia-docs/)
+
 ## Quick start
 
 ```bash
@@ -17,15 +19,15 @@ See [docs/quickstart.md](docs/quickstart.md) for a full walkthrough.
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| `@var-ia/evidence-graph` | Core types & event schemas |
-| `@var-ia/ingestion` | Wikimedia API adapters |
-| `@var-ia/analyzers` | Deterministic analyzers |
-| `@var-ia/interpreter` | Model adapter interface |
-| `@var-ia/cli` | CLI tool (`wikihistory`) |
-| `@var-ia/persistence` | SQLite storage |
-| `@var-ia/eval` | Evaluation harness |
+| Package | Status | License | Description |
+|---|---|---|---|---|
+| `@var-ia/evidence-graph` | Published | CC0-1.0 | Core types & event schemas |
+| `@var-ia/ingestion` | Published | AGPL-3.0 | Wikimedia API adapters |
+| `@var-ia/analyzers` | Published | AGPL-3.0 | Deterministic analyzers |
+| `@var-ia/interpreter` | Published | AGPL-3.0 | Model adapter interface |
+| `@var-ia/cli` | Published | AGPL-3.0 | CLI tool (`wikihistory`) |
+| `@var-ia/persistence` | Not published | AGPL-3.0 | SQLite storage |
+| `@var-ia/eval` | Published | AGPL-3.0 | Evaluation harness |
 
 ## Project status
 

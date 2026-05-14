@@ -103,6 +103,21 @@ wikihistory export <page> [options]
 | `-m, --model <p>` | — | Model provider |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
+## `wikihistory explore`
+
+Start a local web explorer with timeline, evidence table, and diff viewer.
+
+```bash
+wikihistory explore <page> [options]
+```
+
+| Flag | Default | Description |
+|---|---|---|
+| `page` | required (positional) | Page title |
+| `-p, --port <n>` | `8899` | Server port |
+| `--no-open` | off | Don't open browser automatically |
+| `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
+
 ## `wikihistory visualize`
 
 Export evidence graph as a diagram.

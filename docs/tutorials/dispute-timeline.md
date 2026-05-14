@@ -94,4 +94,4 @@ Revert clusters combined with talk page activity indicate dispute intensity. Hig
 
 - Talk pages use the standard MediaWiki API; prefix the page title with `Talk:`.
 - Consider caching with `-c` when fetching both article and talk revisions.
-- Varia does not expose editor usernames in event output — the `revert_detected` event does not include a `revertedBy` field. If you need contributor attribution, use the MediaWiki API directly.
+- Varia exposes an optional `user` field on `Revision` objects when the Wikipedia API returns editor information. Evidence events do not carry editor attribution — the `revert_detected` event does not include a `revertedBy` field.

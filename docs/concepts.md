@@ -73,10 +73,11 @@ All L1 output is structured as typed events:
 - **Claim events**: claim_first_seen, claim_removed, claim_softened, claim_strengthened, claim_reworded, claim_moved, claim_reintroduced
 - **Citation events**: citation_added, citation_removed, citation_replaced
 - **Template events**: template_added, template_removed, template_parameter_changed
-- **Revert events**: revert_detected
+- **Revert/conflict events**: revert_detected, edit_cluster_detected
 - **Section/page events**: section_reorganized, lead_promotion, lead_demotion, page_moved
 - **Link/category events**: wikilink_added, wikilink_removed, category_added, category_removed
 - **Protection events**: protection_changed
-- **Talk page events**: talk_page_correlated, talk_thread_opened, talk_thread_archived, talk_reply_added
+- **Content conflict events**: revert_detected, edit_cluster_detected
+- **Talk page events**: talk_page_correlated, talk_thread_opened, talk_thread_archived, talk_reply_added, talk_activity_spike
 
 See [schema.md](schema.md) for the full reference.
