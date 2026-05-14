@@ -32,10 +32,26 @@ wikihistory watch --page "Darth_Vader" --wiki "starwars.fandom.com" --interval 3
 
 ## Use case: preserving canonicity
 
-TODO: Describe how to monitor canon disputes over time, compare claim stability across different Fandom communities.
+Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `claim_added`, `claim_modified`, and `claim_removed` events, letting you see exactly which lore-critical statement changed, when, and by whom. Compare claim stability across pages to see which characters or settings have the most contested canon.
 
-## TODO
+## Example output
 
-- Add example output for a canon-relevant event
-- Add note about Fandom API differences from Wikimedia
-- Add section on multi-page monitoring (tracking a topic across pages)
+```json
+{
+  "eventId": "canon001a",
+  "eventType": "claim_added",
+  "fromRevisionId": 1280012345,
+  "toRevisionId": 1280016789,
+  "section": "Powers and abilities",
+  "before": "",
+  "after": "Darth Vader's midichlorian count is over 20,000",
+  "timestamp": "2024-12-01T08:15:00Z",
+  "layer": "observed"
+}
+```
+
+## Notes
+
+- Fandom uses the same MediaWiki API as Wikipedia — `--wiki starwars.fandom.com` works
+- Fandom wiki APIs may have different rate limits
+- For multi-page monitoring, use a config file with `wikihistory cron`

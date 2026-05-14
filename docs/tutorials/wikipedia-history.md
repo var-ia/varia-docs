@@ -42,9 +42,41 @@ wikihistory visualize --input ./earth-events.json --output ./earth-timeline.html
 - [Monitor citation churn on medical pages](citation-churn.md)
 - [Build a dispute timeline](dispute-timeline.md)
 
-## TODO
+## Example output
 
-- Add expected output examples for each step
-- Add section on filtering events by type
-- Add section on configuring wiki source (other language Wikipedias)
-- Add troubleshooting tips for rate limits
+`wikihistory analyze` produces a stream of events. Here are two example events from the Earth page:
+
+```json
+{
+  "eventId": "wiki001a",
+  "eventType": "section_added",
+  "fromRevisionId": 1280110001,
+  "toRevisionId": 1280110100,
+  "section": "Geology",
+  "before": "",
+  "after": "== Geology ==\nEarth's crust consists of tectonic plates...",
+  "timestamp": "2024-11-25T12:00:00Z",
+  "layer": "observed"
+}
+```
+
+```json
+{
+  "eventId": "wiki001b",
+  "eventType": "citation_added",
+  "fromRevisionId": 1280110100,
+  "toRevisionId": 1280110200,
+  "section": "Atmosphere",
+  "before": "",
+  "after": "<ref>{{cite web |title=Earth Fact Sheet |url=...}}</ref>",
+  "timestamp": "2024-11-25T14:00:00Z",
+  "layer": "observed"
+}
+```
+
+## Troubleshooting
+
+- **Rate limits**: add `--delay 1000` between requests
+- **Large pages**: start with `--limit 5` to test
+- **Other wikis**: use `--wiki de.wikipedia.org` for German Wikipedia
+- **Output too large**: use `--format ndjson` for line-delimited output

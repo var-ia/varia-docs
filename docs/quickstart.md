@@ -2,8 +2,10 @@
 
 ## Prerequisites
 
-- [Bun](https://bun.sh) v1.2+ runtime
+- [Bun](https://bun.sh) v1.2+ runtime (or Node.js 20+)
 - Internet connection (for fetching revision data from Wikimedia)
+
+See [installation](install.md) for all options (npm, Docker, from source).
 
 ## Install the CLI
 
