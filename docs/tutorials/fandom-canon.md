@@ -8,50 +8,68 @@ Monitor how a Fandom wiki's canon pages change over time, tracking additions and
 
 ### 1. Configure a Fandom wiki
 
+Fandom wikis use the same MediaWiki API. Point `--api` at the wiki's API endpoint:
+
 ```bash
-wikihistory analyze --page "Darth_Vader" --wiki "starwars.fandom.com" --limit 20
+wikihistory analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed
 ```
 
-### 2. Run analyzers
+### 2. Run analyzers with caching
 
 ```bash
-wikihistory analyze --page "Darth_Vader" --wiki "starwars.fandom.com" --limit 50 --output ./canon-events.json
+wikihistory analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed -c
 ```
 
-### 3. Examine claim changes
+### 3. Export results
 
 ```bash
-wikihistory claim --input ./canon-events.json --output ./canon-claims.json
+wikihistory export "Darth_Vader" --api https://starwars.fandom.com/api.php --format json
 ```
 
-### 4. Watch for new edits
+### 4. Track a specific claim
 
 ```bash
-wikihistory watch --page "Darth_Vader" --wiki "starwars.fandom.com" --interval 300
+wikihistory claim "Darth_Vader" --text "midichlorian count is over 20,000" --api https://starwars.fandom.com/api.php -c
+```
+
+### 5. Watch for new edits
+
+```bash
+wikihistory watch "Darth_Vader" --api https://starwars.fandom.com/api.php --interval 60000
 ```
 
 ## Use case: preserving canonicity
 
-Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `claim_added`, `claim_modified`, and `claim_removed` events, letting you see exactly which lore-critical statement changed, when, and by whom. Compare claim stability across pages to see which characters or settings have the most contested canon.
+Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `claim_first_seen`, `claim_removed`, `claim_reworded`, `claim_softened`, and `claim_strengthened` events, letting you see exactly which lore-critical statement changed and when. Compare claim stability across pages to see which characters or settings have the most contested canon.
 
 ## Example output
 
 ```json
 {
-  "eventId": "canon001a",
-  "eventType": "claim_added",
+  "eventId": "f7a2d0e3c1b84906",
+  "eventType": "claim_first_seen",
   "fromRevisionId": 1280012345,
   "toRevisionId": 1280016789,
   "section": "Powers and abilities",
   "before": "",
   "after": "Darth Vader's midichlorian count is over 20,000",
   "timestamp": "2024-12-01T08:15:00Z",
-  "layer": "observed"
+  "layer": "observed",
+  "deterministicFacts": [
+    {
+      "fact": "New claim first appeared: Darth Vader's midichlorian count is over 20,000",
+      "provenance": {
+        "analyzer": "claim-differ",
+        "version": "0.3.1",
+        "inputHashes": []
+      }
+    }
+  ]
 }
 ```
 
 ## Notes
 
-- Fandom uses the same MediaWiki API as Wikipedia — `--wiki starwars.fandom.com` works
-- Fandom wiki APIs may have different rate limits
-- For multi-page monitoring, use a config file with `wikihistory cron`
+- Fandom wikis use the standard MediaWiki API — pass the API URL with `--api`.
+- Fandom wiki APIs may have different rate limits; use `-c` to cache revisions.
+- For multi-page monitoring, use a pages file with `wikihistory cron`.

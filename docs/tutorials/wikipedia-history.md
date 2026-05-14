@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use Varia to analyze the revision history of a Wikipedia page and see what changed over the last 50 edits.
+Use Varia to analyze the revision history of a Wikipedia page and see what changed.
 
 ## Steps
 
@@ -15,25 +15,39 @@ bun add -g @var-ia/cli
 ### 2. Analyze
 
 ```bash
-wikihistory analyze --page "Earth" --limit 50 --output ./earth-events.json
+wikihistory analyze "Earth" --depth detailed -c
+```
+
+With a model for interpretations:
+
+```bash
+wikihistory analyze "Earth" --depth detailed -c -m openai
 ```
 
 ### 3. View results
 
+Events print to stdout. For structured export:
+
 ```bash
-cat ./earth-events.json | bunx json
+wikihistory export "Earth"
 ```
 
 ### 4. Understand the events
 
-- **Section events** — sections were added, removed, or renamed
-- **Citation events** — citations were added or removed
-- **Revert events** — someone reverted an edit
+- **Section events** — sections were reorganized (`section_reorganized`)
+- **Citation events** — citations were added, removed, or replaced (`citation_added`, `citation_removed`, `citation_replaced`)
+- **Revert events** — someone reverted an edit (`revert_detected`)
 
 ### 5. Visualize
 
 ```bash
-wikihistory visualize --input ./earth-events.json --output ./earth-timeline.html
+wikihistory visualize "Earth" --format mermaid
+```
+
+To see all event types (not just claim events):
+
+```bash
+wikihistory visualize "Earth" --format mermaid --all
 ```
 
 ## Next steps
@@ -48,21 +62,31 @@ wikihistory visualize --input ./earth-events.json --output ./earth-timeline.html
 
 ```json
 {
-  "eventId": "wiki001a",
-  "eventType": "section_added",
+  "eventId": "a3f5c2e1b7d409fa",
+  "eventType": "section_reorganized",
   "fromRevisionId": 1280110001,
   "toRevisionId": 1280110100,
   "section": "Geology",
   "before": "",
   "after": "== Geology ==\nEarth's crust consists of tectonic plates...",
   "timestamp": "2024-11-25T12:00:00Z",
-  "layer": "observed"
+  "layer": "observed",
+  "deterministicFacts": [
+    {
+      "fact": "Section Geology added with 3 paragraphs",
+      "provenance": {
+        "analyzer": "section-differ",
+        "version": "0.3.1",
+        "inputHashes": []
+      }
+    }
+  ]
 }
 ```
 
 ```json
 {
-  "eventId": "wiki001b",
+  "eventId": "8e12b4f1a6d3c097",
   "eventType": "citation_added",
   "fromRevisionId": 1280110100,
   "toRevisionId": 1280110200,
@@ -70,13 +94,23 @@ wikihistory visualize --input ./earth-events.json --output ./earth-timeline.html
   "before": "",
   "after": "<ref>{{cite web |title=Earth Fact Sheet |url=...}}</ref>",
   "timestamp": "2024-11-25T14:00:00Z",
-  "layer": "observed"
+  "layer": "observed",
+  "deterministicFacts": [
+    {
+      "fact": "Citation added in section Atmosphere",
+      "provenance": {
+        "analyzer": "citation-tracker",
+        "version": "0.3.1",
+        "inputHashes": []
+      }
+    }
+  ]
 }
 ```
 
 ## Troubleshooting
 
-- **Rate limits**: add `--delay 1000` between requests
-- **Large pages**: start with `--limit 5` to test
-- **Other wikis**: use `--wiki de.wikipedia.org` for German Wikipedia
-- **Output too large**: use `--format ndjson` for line-delimited output
+- **Rate limits**: Use `-c` to cache revisions and avoid re-fetching.
+- **Large pages**: Analyze a range with `--from` and `--to` revision IDs.
+- **Other wikis**: Use `--api` to point to a different MediaWiki API (e.g., `--api https://de.wikipedia.org/w/api.php`).
+- **Output too large**: Use `wikihistory export "Earth" --format ndjson` for line-delimited output.
