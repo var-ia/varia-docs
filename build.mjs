@@ -1,0 +1,178 @@
+import { readFile, writeFile, mkdir, readdir, rm, cp } from 'node:fs/promises';
+import { join, dirname, basename } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { marked } from 'marked';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const DOCS_DIR = join(__dirname, 'docs');
+const DIST_DIR = join(__dirname, 'dist');
+const ASSETS_DIR = join(__dirname, 'assets');
+
+const NAV = [
+  { title: 'Home',             slug: 'index' },
+  { title: 'Quick Start',      slug: 'quickstart' },
+  { title: 'Install',          slug: 'install' },
+  { title: 'Concepts',         slug: 'concepts' },
+  { title: 'Schema',           slug: 'schema' },
+  { title: 'CLI',              slug: 'cli' },
+  { title: 'SDK',              slug: 'sdk' },
+  { title: 'Boundary',         slug: 'boundary' },
+  { title: 'Frontier Use Cases', slug: 'frontier-use-cases' },
+  {
+    title: 'Tutorials',
+    slug: null,
+    children: [
+      { title: 'Wikipedia History', slug: 'tutorials/wikipedia-history' },
+      { title: 'Fandom Canon',       slug: 'tutorials/fandom-canon' },
+      { title: 'Citation Churn',     slug: 'tutorials/citation-churn' },
+      { title: 'Dispute Timeline',   slug: 'tutorials/dispute-timeline' },
+    ],
+  },
+];
+
+function resolveTitle(slug) {
+  for (const item of NAV) {
+    if (item.slug === slug) return item.title;
+    if (item.children) {
+      for (const child of item.children) {
+        if (child.slug === slug) return child.title;
+      }
+    }
+  }
+  return basename(slug);
+}
+
+function slugHref(slug) {
+  return slug === 'index' ? '/' : `/${slug}/`;
+}
+
+function renderNav(currentSlug) {
+  function link(item) {
+    const isActive = item.slug === currentSlug;
+    const cls = isActive ? 'nav-link active' : 'nav-link';
+    return `<a href="${slugHref(item.slug)}" class="${cls}">${item.title}</a>`;
+  }
+
+  let html = '';
+  for (const item of NAV) {
+    if (item.children) {
+      const parentActive = item.children.some(c => c.slug === currentSlug);
+      html += `<div class="nav-section">${item.title}</div>`;
+      html += `<div class="nav-group${parentActive ? ' open' : ''}">`;
+      for (const child of item.children) {
+        html += link(child);
+      }
+      html += '</div>';
+    } else {
+      html += link(item);
+    }
+  }
+  return html;
+}
+
+function wrapHTML(title, content, currentSlug) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} — Varia</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+  <meta name="description" content="Varia — Evidence, not truth. What changed?">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/" class="brand">Varia</a>
+        <p class="tagline">Evidence, not truth.<br>What changed?</p>
+      </div>
+      <nav class="sidebar-nav">
+        ${renderNav(currentSlug)}
+      </nav>
+      <div class="sidebar-footer">
+        <a href="https://github.com/var-ia/varia" class="sidebar-link">GitHub</a>
+        <a href="https://www.npmjs.com/search?q=%40var-ia" class="sidebar-link">npm packages</a>
+      </div>
+    </aside>
+    <label for="menu-toggle" class="menu-overlay"></label>
+    <main class="content">
+      <label for="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </label>
+      ${content}
+    </main>
+  </div>
+</body>
+</html>`;
+}
+
+function rewriteLink(href) {
+  if (!href) return href;
+  if (href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) return href;
+  href = href.replace(/\.md$/, '/');
+  if (href === 'index/') return '/';
+  return href;
+}
+
+async function collectFiles(dir, base = '') {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const fp = join(dir, entry.name);
+    const rel = base ? `${base}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      files.push(...await collectFiles(fp, rel));
+    } else if (entry.name.endsWith('.md')) {
+      files.push({ path: fp, slug: rel.replace(/\.md$/, '') });
+    }
+  }
+  return files;
+}
+
+async function build() {
+  await rm(DIST_DIR, { recursive: true, force: true });
+  await mkdir(DIST_DIR, { recursive: true });
+
+  const files = await collectFiles(DOCS_DIR);
+
+  const renderer = new marked.Renderer();
+  renderer.link = function ({ href, title, text }) {
+    const h = rewriteLink(href);
+    const t = title ? ` title="${title}"` : '';
+    return `<a href="${h}"${t}>${text}</a>`;
+  };
+  renderer.image = function ({ href, title, text }) {
+    const h = rewriteLink(href);
+    const t = title ? ` title="${title}"` : '';
+    return `<img src="${h}" alt="${text}"${t}>`;
+  };
+
+  marked.setOptions({ gfm: true, breaks: false });
+
+  for (const file of files) {
+    const raw = await readFile(file.path, 'utf-8');
+    const body = marked.parse(raw, { renderer });
+    const h1Match = raw.match(/^#\s+(.+)/m);
+    const title = h1Match ? h1Match[1] : resolveTitle(file.slug);
+    const html = wrapHTML(title, body, file.slug);
+
+    if (file.slug === 'index') {
+      await writeFile(join(DIST_DIR, 'index.html'), html);
+    } else {
+      const outDir = join(DIST_DIR, file.slug);
+      await mkdir(outDir, { recursive: true });
+      await writeFile(join(outDir, 'index.html'), html);
+    }
+  }
+
+  await cp(ASSETS_DIR, DIST_DIR, { recursive: true });
+  console.log(`Built ${files.length} pages to dist/`);
+}
+
+build().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

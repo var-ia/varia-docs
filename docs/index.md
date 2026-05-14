@@ -19,6 +19,7 @@ Varia is a domain-neutral observability layer for public knowledge. It ingests r
 - [SDK / package reference](sdk.md)
 - [Tutorials](tutorials/wikipedia-history.md)
 - [Boundary](boundary.md)
+- [Frontier use cases](frontier-use-cases.md)
 
 ## Open source
 
