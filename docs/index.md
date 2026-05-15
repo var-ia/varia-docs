@@ -1,14 +1,17 @@
-# Varia: an open-source deterministic observation engine for public revision histories
+# Varia: the git log for public knowledge
 
 **Varia answers: "What changed?"**
 
-Varia is a domain-neutral observability layer for public knowledge. It ingests revision histories from Wikimedia, Fandom, and other public wikis, applies deterministic analysis to extract structured evidence, and surfaces what changed — without deciding what is true.
+Varia is a deterministic observation layer for public knowledge. It ingests
+revision histories from Wikipedia, Fandom, and any MediaWiki instance, extracts
+structured evidence, and emits a provenance-tagged event stream — without calling
+a model, without deciding what is true.
 
 ## Why Varia?
 
-- **Deterministic by default.** Analysis is byte-for-byte reproducible. No model, no variance.
-- **Provenance-tagged.** Every event carries revision, section, and timestamp context.
-- **Pluggable architecture.** Swap analyzers and storage backends without changing the core pipeline.
+- **Deterministic by default.** Every run on the same revision range produces identical output. No model, no variance.
+- **Provenance-tagged.** Every event carries revision, section, timestamp, and analyzer identity.
+- **Reusable primitive.** `claim + source + wording + placement + stability + time` — a substrate downstream systems build on, without contaminating.
 
 ## Contents
 

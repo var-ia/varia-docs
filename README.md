@@ -1,6 +1,6 @@
 # Varia Docs
 
-Public documentation for [Varia](https://github.com/var-ia/varia), the open-source deterministic observation engine for public revision histories.
+Public documentation for [Varia](https://github.com/var-ia/varia) — the git log for public knowledge.
 
 **Varia answers: "What changed?"**
 
@@ -31,7 +31,7 @@ See [quickstart](https://var-ia.github.io/varia-docs/quickstart/) for a full wal
 
 ## Project status
 
-Varia is in active development by [NextConsensus](https://nextconsensus.com). The deterministic observation layer is usable.
+Varia is actively developed by [NextConsensus](https://nextconsensus.com). v0.3.1 — deterministic observation layer is production-quality.
 
 ## License
 
