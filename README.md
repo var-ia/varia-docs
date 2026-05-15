@@ -1,12 +1,12 @@
-# Varia Docs
+# Sequent Docs
 
-Public documentation for [Varia](https://github.com/var-ia/varia) — the git log for public knowledge.
+Public documentation for [Sequent](https://github.com/var-ia/varia) — the git log for public knowledge.
 
-**Varia answers: "What changed?"**
+**Sequent answers: "What changed?"**
 
 ---
 
-**Live at:** [var-ia.github.io/varia-docs](https://var-ia.github.io/varia-docs/)
+**Live at:** [var-ia.github.io/sequent-docs](https://var-ia.github.io/sequent-docs/)
 
 ## Quick start
 
@@ -15,7 +15,7 @@ Public documentation for [Varia](https://github.com/var-ia/varia) — the git lo
 npx @var-ia/cli analyze "Earth" --depth brief
 ```
 
-See [quickstart](https://var-ia.github.io/varia-docs/quickstart/) for a full walkthrough.
+See [quickstart](https://var-ia.github.io/sequent-docs/quickstart/) for a full walkthrough.
 
 ## Packages
 
@@ -31,7 +31,7 @@ See [quickstart](https://var-ia.github.io/varia-docs/quickstart/) for a full wal
 
 ## Project status
 
-Varia is actively developed by [NextConsensus](https://nextconsensus.com). v0.3.1 — deterministic observation layer is production-quality.
+Sequent is actively developed by [NextConsensus](https://nextconsensus.com). v0.3.1 — deterministic observation layer is production-quality.
 
 ## License
 
