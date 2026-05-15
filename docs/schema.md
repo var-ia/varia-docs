@@ -5,13 +5,9 @@
 ```typescript
 export type EventType =
   // Claim lifecycle
-  | "claim_first_seen"
-  | "claim_removed"
-  | "claim_softened"
-  | "claim_strengthened"
-  | "claim_reworded"
-  | "claim_moved"
-  | "claim_reintroduced"
+  | "sentence_first_seen"
+  | "sentence_removed"
+  | "sentence_reintroduced"
 
   // Citation changes
   | "citation_added"

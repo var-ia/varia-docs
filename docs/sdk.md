@@ -39,22 +39,6 @@ await db.insertEvents(events);
 const saved = await db.getEvents({ pageTitle: "Earth" });
 ```
 
-## L2 interpretation
-
-```typescript
-import { createAdapter } from "@var-ia/interpreter";
-import type { ModelAdapter, InterpretedEvent } from "@var-ia/interpreter";
-
-const adapter: ModelAdapter = createAdapter({
-  provider: "openai",
-  model: "gpt-4o",
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const interpreted: InterpretedEvent[] = await adapter.interpret(events);
-```
-
-Available providers: `openai`, `anthropic`, `deepseek`, `local`, `byok`. Use `local` with `--router` for Ollama-based open-weight models.
-
 ## Package reference
 
 ### `@var-ia/evidence-graph`
@@ -112,23 +96,10 @@ All L1 analyzers share a common pattern — extract from wikitext, diff across r
 Key exports:
 - Instances: `sectionDiffer`, `citationTracker`, `revertDetector`, `templateTracker`, `protectionTracker`
 - Builders: `buildSectionLineage`, `buildSourceLineage`, `buildClaimLineage`, `buildWikilinkEvents`, `buildPageMoveEvents`, `buildTalkThreadEvents`, `buildCategoryEvents`, `buildParamChangeEvents`
-- Classifiers: `classifyHeuristic`, `classifyClaimChange`
+- Classifiers: `classifyHeuristic`
 - Parsers: `sanitizeWikitext`, `extractHeadingMap`, `extractWikilinks`, `extractCategories`, `countCitations`, `countKeywordMentions`, `deriveSectionHeading`
 - Cross-revision: `correlateTalkRevisions`, `diffObservations`, `parseTalkThreads`, `diffTalkThreads`, `diffTemplateParams`, `diffCategories`, `diffWikilinks`
 - Clusters & activity: `detectEditClusters`, `detectTalkActivitySpikes`
-
-### `@var-ia/interpreter`
-
-Pluggable model adapter interface for L2. Provider-agnostic factory pattern.
-
-```typescript
-import { createAdapter } from "@var-ia/interpreter";
-import type { ModelAdapter, ModelConfig, InterpretedEvent, LineageContext } from "@var-ia/interpreter";
-
-const adapter = createAdapter({ provider: "openai", apiKey: "...", model: "gpt-4o" });
-```
-
-Key exports: `createAdapter`, `ModelAdapter` (interface), `ModelConfig`, `InterpretedEvent`, `LineageContext`, `CalibratedAdapter`, `CascadingRouter`, `ConsensusAdapter`, `ModelRouter`
 
 ### `@var-ia/cli`
 
