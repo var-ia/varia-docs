@@ -55,6 +55,10 @@ Key exports:
 - Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`
 - Utilities: `createClaimIdentity`, `createEventIdentity`
 - Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
+- BYOI (bring your own inference):
+  - `buildInterpretationPrompt(events, pageTitle)` — format events into a structured prompt for any LLM
+  - `parseInterpretationResponse(text)` — parse LLM output back into typed `ModelInterpretation[]`
+  - `ModelInterpretationSchema` — JSON Schema for `response_format: json_schema`
 
 ### `@var-ia/ingestion`
 

@@ -66,6 +66,33 @@ Downstream model interpretation is a separate concern — it consumes Varia's ev
 - No prediction, sentiment analysis, or editor scoring
 - No claims about compliance, policy violations, or decision relevance
 
+## Bring your own inference
+
+Varia provides the format pipeline; you provide the model.
+
+The deterministic engine never calls an LLM, never stores API keys, and never
+depends on any inference runtime. But the event schema includes a
+`modelInterpretation` field on every `EvidenceEvent` — reserved for downstream
+systems to attach semantic analysis without modifying the deterministic record.
+
+Three utilities in `@var-ia/evidence-graph` make this boundary clean:
+
+- **`buildInterpretationPrompt(events, pageTitle)`** — formats a batch of events
+  into a structured prompt for any LLM: "classify each event by semantic change,
+  confidence, policy dimension, and discussion type"
+
+- **`ModelInterpretationSchema`** — a JSON Schema that any provider supporting
+  `response_format: json_schema` (OpenAI, Anthropic, DeepSeek) can use to produce
+  valid structured output
+
+- **`parseInterpretationResponse(text)`** — extracts typed `ModelInterpretation[]`
+  from raw LLM output with JSON extraction fallback
+
+The MCP server (`wikihistory mcp`) extends this pattern through **MCP sampling**:
+it requests the host's LLM to interpret events without managing API keys.
+Reference pipelines are in [varia-labs](https://github.com/var-ia/varia-labs) for
+DeepSeek, OpenAI, Ollama, and other OpenAI-compatible providers.
+
 ## Independent ground truth
 
 The eval package stores outcome labels independently from pipeline output. These labels are collected from talk page discussions, RFC closures, and arbitration decisions — human consensus about what happened. The evaluation harness compares pipeline events against these labels to measure analyzer accuracy without feedback loops.
