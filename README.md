@@ -12,21 +12,23 @@ Public documentation for [Varia](https://github.com/var-ia/varia), the open-sour
 
 ```bash
 bun add @var-ia/cli
-npx wikihistory analyze --page "Earth"
+npx wikihistory analyze "Earth"
 ```
 
-See [docs/quickstart.md](docs/quickstart.md) for a full walkthrough.
+See [quickstart](https://var-ia.github.io/varia-docs/quickstart/) for a full walkthrough.
 
 ## Packages
 
 | Package | Status | License | Description |
-|---|---|---|---|---|
-| `@var-ia/evidence-graph` | Published | CC0-1.0 | Core types & event schemas |
-| `@var-ia/ingestion` | Published | AGPL-3.0 | Wikimedia API adapters |
-| `@var-ia/analyzers` | Published | AGPL-3.0 | Deterministic analyzers |
-| `@var-ia/cli` | Published | AGPL-3.0 | CLI tool (`wikihistory`) |
+|---|---|---|---|
+| `@var-ia/evidence-graph` | [![npm](https://img.shields.io/npm/v/@var-ia/evidence-graph)](https://www.npmjs.com/package/@var-ia/evidence-graph) | CC0-1.0 | Core types & event schemas |
+| `@var-ia/ingestion` | [![npm](https://img.shields.io/npm/v/@var-ia/ingestion)](https://www.npmjs.com/package/@var-ia/ingestion) | AGPL-3.0 | Wikimedia API adapters |
+| `@var-ia/analyzers` | [![npm](https://img.shields.io/npm/v/@var-ia/analyzers)](https://www.npmjs.com/package/@var-ia/analyzers) | AGPL-3.0 | Deterministic analyzers |
+| `@var-ia/interpreter` | [![npm](https://img.shields.io/npm/v/@var-ia/interpreter)](https://www.npmjs.com/package/@var-ia/interpreter) | AGPL-3.0 | Pluggable model adapter (L2) |
+| `@var-ia/cli` | [![npm](https://img.shields.io/npm/v/@var-ia/cli)](https://www.npmjs.com/package/@var-ia/cli) | AGPL-3.0 | CLI tool (`wikihistory`) |
 | `@var-ia/persistence` | Not published | AGPL-3.0 | SQLite storage |
-| `@var-ia/eval` | Published | AGPL-3.0 | Evaluation harness |
+| `@var-ia/eval` | Not published | AGPL-3.0 | Evaluation harness |
+| `@var-ia/observable` | Not published | AGPL-3.0 | Observable data loader |
 
 ## Project status
 
