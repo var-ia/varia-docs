@@ -6,7 +6,7 @@ Public documentation for [Refract](https://github.com/refract-org/refract) — t
 
 ---
 
-**Live at:** [var-ia.github.io/refract-docs](https://var-ia.github.io/refract-docs/)
+**Live at:** [refract-org.github.io/refract-docs](https://refract-org.github.io/refract-docs/)
 
 ## Quick start
 
@@ -15,7 +15,7 @@ Public documentation for [Refract](https://github.com/refract-org/refract) — t
 npx @refract-org/cli analyze "Earth" --depth brief
 ```
 
-See [quickstart](https://var-ia.github.io/refract-docs/quickstart/) for a full walkthrough.
+See [quickstart](https://refract-org.github.io/refract-docs/quickstart/) for a full walkthrough.
 
 ## Packages
 
@@ -24,7 +24,7 @@ See [quickstart](https://var-ia.github.io/refract-docs/quickstart/) for a full w
 | `@refract-org/evidence-graph` | [![npm](https://img.shields.io/npm/v/@refract-org/evidence-graph)](https://www.npmjs.com/package/@refract-org/evidence-graph) | CC0-1.0 | Core types & event schemas |
 | `@refract-org/ingestion` | [![npm](https://img.shields.io/npm/v/@refract-org/ingestion)](https://www.npmjs.com/package/@refract-org/ingestion) | AGPL-3.0 | Wikimedia API adapters |
 | `@refract-org/analyzers` | [![npm](https://img.shields.io/npm/v/@refract-org/analyzers)](https://www.npmjs.com/package/@refract-org/analyzers) | AGPL-3.0 | Deterministic analyzers |
-| `@refract-org/cli` | [![npm](https://img.shields.io/npm/v/@refract-org/cli)](https://www.npmjs.com/package/@refract-org/cli) | AGPL-3.0 | CLI tool (`wikihistory`) |
+| `@refract-org/cli` | [![npm](https://img.shields.io/npm/v/@refract-org/cli)](https://www.npmjs.com/package/@refract-org/cli) | AGPL-3.0 | CLI tool (`refract` / `wikihistory`) |
 | `@refract-org/persistence` | Not published | AGPL-3.0 | SQLite storage |
 | `@refract-org/eval` | Not published | AGPL-3.0 | Evaluation harness |
 | `@refract-org/observable` | Not published | AGPL-3.0 | Observable data loader |
