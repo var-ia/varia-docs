@@ -2,10 +2,10 @@
 
 **Varia answers: "What changed?"**
 
-Varia is a deterministic observation layer for public knowledge. It ingests
-revision histories from Wikipedia, Fandom, and any MediaWiki instance, extracts
-structured evidence, and emits a provenance-tagged event stream — without calling
-a model, without deciding what is true.
+The printing press made knowledge durable by freezing it. Wikipedia made it mutable.
+But systems still consume only the current surface. Varia makes the mutation legible
+— a provenance-tagged event stream of every claim, source, section, and dispute
+across an entire revision history, without calling a model, without deciding what is true.
 
 ## Why Varia?
 
