@@ -132,7 +132,7 @@ Key exports: `createAdapter`, `ModelAdapter` (interface), `ModelConfig`, `Interp
 
 ### `@var-ia/cli`
 
-The `wikihistory` CLI tool (9 commands: analyze, claim, export, visualize, watch, cron, diff, eval, mcp). See [CLI reference](./cli).
+The `wikihistory` CLI tool (10 commands: analyze, claim, cron, diff, eval, explore, export, mcp, visualize, watch). See [CLI reference](./cli).
 
 ### `@var-ia/persistence`
 

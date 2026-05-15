@@ -41,4 +41,6 @@ docs/
 
 ## Build
 
-No build step for this repo — all files are plain markdown.
+```bash
+node build.mjs      # builds static HTML from docs/ → dist/
+```

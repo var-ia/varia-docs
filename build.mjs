@@ -110,12 +110,13 @@ function wrapHTML(title, content, currentSlug) {
 </html>`;
 }
 
-function rewriteLink(href) {
+function rewriteLink(href, sourceDir = '') {
   if (!href) return href;
   if (href.startsWith('http') || href.startsWith('#')) return href;
   href = href.replace(/\.md$/, '/');
   if (href === 'index/' || href === 'index') return BASE;
   if (href.startsWith('/')) return BASE + href.slice(1);
+  if (sourceDir) href = sourceDir + '/' + href;
   return BASE + href;
 }
 
@@ -141,21 +142,24 @@ async function build() {
   const files = await collectFiles(DOCS_DIR);
 
   const renderer = new marked.Renderer();
+  let currentSourceDir = '';
   renderer.link = function ({ href, title, text }) {
-    const h = rewriteLink(href);
+    const h = rewriteLink(href, currentSourceDir);
     const t = title ? ` title="${title}"` : '';
     return `<a href="${h}"${t}>${text}</a>`;
   };
   renderer.image = function ({ href, title, text }) {
-    const h = rewriteLink(href);
+    const h = rewriteLink(href, currentSourceDir);
     const t = title ? ` title="${title}"` : '';
     return `<img src="${h}" alt="${text}"${t}>`;
   };
 
-  marked.setOptions({ gfm: true, breaks: false });
+  marked.use({ gfm: true, breaks: false });
 
   for (const file of files) {
     const raw = await readFile(file.path, 'utf-8');
+    currentSourceDir = dirname(file.slug);
+    if (currentSourceDir === '.') currentSourceDir = '';
     const body = marked.parse(raw, { renderer });
     const h1Match = raw.match(/^#\s+(.+)/m);
     const title = h1Match ? h1Match[1] : resolveTitle(file.slug);

@@ -1,6 +1,6 @@
 # Varia Docs
 
-Public documentation for [Varia](https://github.com/var-ia/var-ia), the open-source deterministic observation engine for public revision histories.
+Public documentation for [Varia](https://github.com/var-ia/varia), the open-source deterministic observation engine for public revision histories.
 
 **Varia answers: "What changed?"**
 
