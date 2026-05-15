@@ -2,22 +2,27 @@
 
 ## Prerequisites
 
-- [Bun](https://bun.sh) v1.2+ runtime (or Node.js 20+)
+- [Node.js](https://nodejs.org) 20+ or [Bun](https://bun.sh) v1.2+ runtime
 - Internet connection (for fetching revision data from Wikimedia)
 
-See [installation](install.md) for all options (npm, Docker, from source).
+See [installation](install.md) for all options (npx, npm, bun, Docker, from source).
 
 ## Install the CLI
 
-```bash
-bun add -g @var-ia/cli
-```
-
-Or use directly with `npx`:
+**Zero install** (no download needed):
 
 ```bash
-npx wikihistory analyze "Earth"
+npx @var-ia/cli analyze "Earth" --depth brief
 ```
+
+**Or install locally:**
+
+```bash
+bun add @var-ia/cli
+wikihistory analyze "Earth" --depth brief
+```
+
+See [installation](install.md) for all options (bun, npm, Docker, from source).
 
 ## Your first analysis
 
@@ -43,7 +48,7 @@ Opens a local web server (default port 8899) with a timeline view, evidence tabl
 wikihistory export "Earth" --format ndjson > earth-events.jsonl
 ```
 
-Use `wikihistory export` to format output as json, csv, ndjson, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
+Use `wikihistory export` to format output as json, csv, ndjson, html, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
 
 ## Next steps
 

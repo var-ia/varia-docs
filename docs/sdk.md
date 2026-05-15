@@ -2,7 +2,7 @@
 
 ## Overview
 
-Varia's SDK is a set of 7 packages that compose into a pipeline: ingest → analyze → persist → interpret.
+Varia's SDK is a set of packages that compose into a pipeline: ingest → analyze → persist.
 
 Packages are published on npm under the `@var-ia` scope. All packages are ESM-only and written in TypeScript.
 

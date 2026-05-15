@@ -6,39 +6,36 @@ Use Varia to analyze the revision history of a Wikipedia page and see what chang
 
 ## Steps
 
-### 1. Install the CLI
+### 1. Run your first analysis
+
+Zero install:
 
 ```bash
-bun add -g @var-ia/cli
+npx @var-ia/cli analyze "Earth" --depth detailed
 ```
 
-### 2. Analyze
+Or with a local install:
 
 ```bash
+bun add @var-ia/cli
 wikihistory analyze "Earth" --depth detailed -c
 ```
 
-With a model for interpretations:
+### 2. View results
+
+Events print to stdout. For structured export or an HTML report:
 
 ```bash
-wikihistory analyze "Earth" --depth detailed -c -m openai
+wikihistory export "Earth" --format html > earth-report.html
 ```
 
-### 3. View results
-
-Events print to stdout. For structured export:
-
-```bash
-wikihistory export "Earth"
-```
-
-### 4. Understand the events
+### 3. Understand the events
 
 - **Section events** — sections were reorganized (`section_reorganized`)
 - **Citation events** — citations were added, removed, or replaced (`citation_added`, `citation_removed`, `citation_replaced`)
 - **Revert events** — someone reverted an edit (`revert_detected`)
 
-### 5. Visualize
+### 4. Visualize
 
 ```bash
 wikihistory visualize "Earth" --format mermaid

@@ -92,7 +92,7 @@ wikihistory export <page> [options]
 | Flag | Default | Description |
 |---|---|---|
 | `page` | required (positional) | Page title |
-| `-f, --format <fmt>` | `json` | Output format: `json`, `csv`, `ndjson` |
+| `-f, --format <fmt>` | `json` | Output format: `json`, `csv`, `ndjson`, `html` |
 | `--bundle` | off | Export as signed evidence bundle (SHA-256). See [bundle format](bundle-manifest.md). |
 | `--manifest` | off | Export as replay manifest with all hashes. See [manifest format](bundle-manifest.md). |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
