@@ -38,9 +38,9 @@ See [depth reference](depth.md).
 
 ## Output model
 
-The pipeline produces timed `EvidenceEvent` objects with 25 event types, all mechanical:
+The pipeline produces timed `EvidenceEvent` objects with 26 event types, all mechanical:
 
-- **Sentence events**: `sentence_first_seen`, `sentence_removed`, `sentence_reintroduced`
+- **Sentence events**: `sentence_first_seen`, `sentence_removed`, `sentence_modified`, `sentence_reintroduced`
 - **Citation events**: `citation_added`, `citation_removed`, `citation_replaced`
 - **Section events**: `section_reorganized`
 - **Template events**: `template_added`, `template_removed`, `template_parameter_changed`
@@ -52,6 +52,10 @@ The pipeline produces timed `EvidenceEvent` objects with 25 event types, all mec
 - **Talk page events**: `talk_page_correlated`, `talk_thread_opened`, `talk_thread_archived`, `talk_reply_added`
 
 The event schema includes a `modelInterpretation` field and `model_interpretation` evidence layer — these are never set by Refract's deterministic engine. They exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the event stream.
+
+Analyzers accept configurable parameters (similarity thresholds, time windows, revert patterns) via `AnalyzerConfig`, passed from the CLI or SDK. This allows users to tune detection sensitivity without modifying analyzer code.
+
+The pipeline can also produce an `ObservationReport` — a structured aggregate that groups events by claim with a `ClaimLedger` tracking each claim's lifecycle across revisions.
 
 See [schema.md](schema.md) for the full reference.
 

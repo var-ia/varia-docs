@@ -18,6 +18,10 @@
 
 **MediaWiki** — The open-source wiki engine used by Wikipedia, Fandom, and thousands of other wikis. Refract works with any MediaWiki instance that exposes an `api.php` endpoint.
 
+**ObservationReport** — A structured aggregate produced by the pipeline that groups events by claim, with a `ClaimLedger` tracking each claim's lifecycle (first seen, removed, modified, reintroduced) across revision history. Output via `--report` flag.
+
+**`sentence_modified`** — An event type emitted when sentence text changes but remains above the similarity threshold (word-overlap ratio, default 0.8). Captures rewording, minor edits, and phrasing changes without treating the sentence as removed-and-reintroduced.
+
 **Provenance** — Metadata attached to each deterministic fact recording which analyzer produced it, what version, and which input data was used. Enables auditability.
 
 **Revision** — A single version of a page. Revisions are identified by numeric IDs and ordered by timestamp.

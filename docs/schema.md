@@ -1,12 +1,13 @@
 # Event schema reference
 
-## `EventType` — all 25 event types
+## `EventType` — all 26 event types
 
 ```typescript
 export type EventType =
   // Claim lifecycle
   | "sentence_first_seen"
   | "sentence_removed"
+  | "sentence_modified"
   | "sentence_reintroduced"
 
   // Citation changes
@@ -89,6 +90,7 @@ export interface FactProvenance {
   analyzer: string;        // analyzer that produced this fact
   version: string;         // analyzer version
   inputHashes: string[];   // hashes of input data used
+  parameters?: Record<string, string | number | boolean>;  // parameters used by the analyzer
 }
 
 export interface ModelInterpretation {
@@ -119,6 +121,8 @@ export type PolicyDimension =
 ```
 
 `ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Refract's deterministic pipeline — they exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the deterministic event.
+
+`AnalyzerConfig` is a supporting type exported from `@refract-org/evidence-graph` that defines configurable parameters for analyzers (similarity thresholds, time windows, revert patterns). See the [CLI reference](./cli) for the per-flag equivalents.
 
 ## Deterministic identity
 

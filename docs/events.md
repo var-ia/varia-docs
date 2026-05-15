@@ -5,9 +5,10 @@ Each Refract event describes what changed at a revision boundary. Events are det
 ## Claim lifecycle
 
 | Event type | Trigger | Example |
-|---|---|---|
+|---|---|---|---|
 | `sentence_first_seen` | New sentence text appears | A sentence about a company appears for the first time |
 | `sentence_removed` | Existing sentence deleted entirely | A controversial paragraph is removed |
+| `sentence_modified` | Same sentence text changed (similarity threshold match) | Sentence rewording detected by word-overlap ratio |
 | `sentence_reintroduced` | Previously removed sentence returns | A deleted sentence is restored in a later edit |
 
 ## Citation changes

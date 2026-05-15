@@ -9,7 +9,7 @@ refract analyze [page] [options]
 ```
 
 | Flag | Default | Description |
-|---|---|---|
+|---|---|---|---|
 | `page` | required (positional) | Page title |
 | `-d, --depth <d>` | `detailed` | Analysis depth: `brief`, `detailed`, `forensic`. See [depth levels](depth.md). |
 | `--from <revId>` | — | Start revision ID |
@@ -19,6 +19,14 @@ refract analyze [page] [options]
 | `--pages-file <path>` | — | Batch file of page titles (one per line) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 | `--cache-dir <path>` | `~/.refract` | Cache directory path |
+| `-r, --report` | off | Output `ObservationReport` instead of raw events |
+| `--config <path>` | — | JSON file with analyzer config overrides |
+| `--similarity <n>` | `0.8` | Sentence matching threshold (0–1) |
+| `--revert-patterns <path>` | — | File of revert regex patterns |
+| `--cluster-window <min>` | `60` | Edit cluster window in minutes |
+| `--spike-factor <n>` | `3` | Talk activity spike multiplier |
+| `--talk-window <days>` | `7/3` | Talk correlation window as "before/after" in days |
+| `--section-rename <mode>` | `similarity` | Section rename detection: `exact`\|`similarity`\|`none` |
 
 ## `refract claim`
 
@@ -90,11 +98,13 @@ refract export <page> [options]
 ```
 
 | Flag | Default | Description |
-|---|---|---|
+|---|---|---|---|
 | `page` | required (positional) | Page title |
 | `-f, --format <fmt>` | `json` | Output format: `json`, `csv`, `ndjson`, `html` |
 | `--bundle` | off | Export as signed evidence bundle (SHA-256). See [bundle format](bundle-manifest.md). |
 | `--manifest` | off | Export as replay manifest with all hashes. See [manifest format](bundle-manifest.md). |
+| `-r, --report` | off | Output `ObservationReport` instead of raw events |
+| `--similarity <n>` | `0.8` | Sentence matching threshold (0–1) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
 ## `refract explore`
@@ -106,10 +116,13 @@ refract explore <page> [options]
 ```
 
 | Flag | Default | Description |
-|---|---|---|
+|---|---|---|---|
 | `page` | required (positional) | Page title |
 | `-p, --port <n>` | `8899` | Server port |
 | `--no-open` | off | Don't open browser automatically |
+| `-r, --report` | off | Output `ObservationReport` instead of raw events |
+| `--similarity <n>` | `0.8` | Sentence matching threshold (0–1) |
+| `--config <path>` | — | JSON file with analyzer config overrides |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
 ## `refract visualize`

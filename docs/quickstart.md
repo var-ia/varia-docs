@@ -34,7 +34,7 @@ refract analyze "Earth"
 
 By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth" and runs all available deterministic analyzers (section changes, citation changes, revert detection, template changes). Use `--from` and `--to` to scope to a specific revision range.
 
-Output is printed to stdout as structured JSON.
+Output is printed to stdout as structured JSON. Use `--report` to get a structured `ObservationReport` that groups events by claim with a lifecycle ledger. Use `--similarity <n>` to adjust the sentence matching threshold (default 0.8).
 
 ## View results in the web UI
 

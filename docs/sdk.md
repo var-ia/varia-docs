@@ -46,15 +46,19 @@ const saved = await db.getEvents({ pageTitle: "Earth" });
 Core types, event schemas, and utilities. Zero runtime dependencies.
 
 ```typescript
-import type { EvidenceEvent, EventType, Revision } from "@refract-org/evidence-graph";
+import type { EvidenceEvent, EventType, Revision, ClaimLedger, ClaimLedgerEntry, ObservationReport } from "@refract-org/evidence-graph";
 import { createClaimIdentity, createEventIdentity } from "@refract-org/evidence-graph";
 ```
 
+`EventType` now includes `sentence_modified` (26 event types total).
+
 Key exports:
-- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`, `ModelInterpretation`
-- Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`
+- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`, `ModelInterpretation`, `ClaimLedger`, `ClaimLedgerEntry`, `ObservationReport`
+- Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`, `AnalyzerConfig`
 - Utilities: `createClaimIdentity`, `createEventIdentity`
 - Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
+- `FactProvenance.parameters`: optional record of analyzer parameters (strings, numbers, booleans)
+- `AnalyzerConfig`: configurable thresholds and windows for analyzers (similarity, time windows, revert patterns, etc.)
 - BYOI (bring your own inference):
   - `buildInterpretationPrompt(events, pageTitle)` — format events into a structured prompt for any LLM
   - `parseInterpretationResponse(text)` — parse LLM output back into typed `ModelInterpretation[]`
