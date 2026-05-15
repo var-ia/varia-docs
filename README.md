@@ -24,14 +24,13 @@ See [docs/quickstart.md](docs/quickstart.md) for a full walkthrough.
 | `@var-ia/evidence-graph` | Published | CC0-1.0 | Core types & event schemas |
 | `@var-ia/ingestion` | Published | AGPL-3.0 | Wikimedia API adapters |
 | `@var-ia/analyzers` | Published | AGPL-3.0 | Deterministic analyzers |
-| `@var-ia/interpreter` | Published | AGPL-3.0 | Model adapter interface |
 | `@var-ia/cli` | Published | AGPL-3.0 | CLI tool (`wikihistory`) |
 | `@var-ia/persistence` | Not published | AGPL-3.0 | SQLite storage |
 | `@var-ia/eval` | Published | AGPL-3.0 | Evaluation harness |
 
 ## Project status
 
-Varia is in active development by [NextConsensus](https://nextconsensus.com). The core L1 (deterministic) layer is usable. L2 (model-assisted) and L3 (ground truth) layers are in progress.
+Varia is in active development by [NextConsensus](https://nextconsensus.com). The deterministic observation layer is usable.
 
 ## License
 
