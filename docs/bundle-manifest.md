@@ -38,4 +38,4 @@ wikihistory export "Earth" --manifest > earth-manifest.json
 }
 ```
 
-Use manifests when you need lightweight integrity verification — for example, checking whether an observation has changed without re-downloading all events. The `@var-ia/evidence-graph` package exports `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, and `verifyMerkleProof` for programmatic use.
+Use manifests when you need lightweight integrity verification — for example, checking whether an observation has changed without re-downloading all events. The `@refract-org/evidence-graph` package exports `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, and `verifyMerkleProof` for programmatic use.

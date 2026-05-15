@@ -118,7 +118,7 @@ export type PolicyDimension =
   | "civility";
 ```
 
-`ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Varia's deterministic pipeline — they exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the deterministic event.
+`ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Refract's deterministic pipeline — they exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the deterministic event.
 
 ## Deterministic identity
 

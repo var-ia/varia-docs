@@ -84,4 +84,4 @@ Citation churn patterns reveal source instability. A citation added in one edit 
 
 - Use `--format csv` or `--format ndjson` on `wikihistory export` for spreadsheet-importable churn reports.
 - Group by source domain to see which types of sources churn most.
-- Varia tracks the citation change, not source quality — that's outside the boundary.
+- Refract tracks the citation change, not source quality — that's outside the boundary.

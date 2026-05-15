@@ -12,13 +12,13 @@ See [installation](install.md) for all options (npx, npm, bun, Docker, from sour
 **Zero install** (no download needed):
 
 ```bash
-npx @var-ia/cli analyze "Earth" --depth brief
+npx @refract-org/cli analyze "Earth" --depth brief
 ```
 
 **Or install locally:**
 
 ```bash
-bun add @var-ia/cli
+bun add @refract-org/cli
 wikihistory analyze "Earth" --depth brief
 ```
 

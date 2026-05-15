@@ -1,13 +1,13 @@
-# Varia: the git log for public knowledge
+# Refract: the git log for public knowledge
 
-**Varia answers: "What changed?"**
+**Refract answers: "What changed?"**
 
 The printing press made knowledge durable by freezing it. Wikipedia made it mutable.
-But systems still consume only the current surface. Varia makes the mutation legible
+But systems still consume only the current surface. Refract makes the mutation legible
 — a provenance-tagged event stream of every claim, source, section, and dispute
 across an entire revision history, without calling a model, without deciding what is true.
 
-## Why Varia?
+## Why Refract?
 
 - **Deterministic by default.** Every run on the same revision range produces identical output. No model, no variance.
 - **Provenance-tagged.** Every event carries revision, section, timestamp, and analyzer identity.
@@ -35,4 +35,4 @@ across an entire revision history, without calling a model, without deciding wha
 
 ## Open source
 
-Varia is open source under AGPL-3.0.
+Refract is open source under AGPL-3.0.

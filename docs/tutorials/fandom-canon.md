@@ -40,7 +40,7 @@ wikihistory watch "Darth_Vader" --api https://starwars.fandom.com/api.php --inte
 
 ## Use case: preserving canonicity
 
-Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `sentence_first_seen` and `sentence_removed` events, letting you see exactly which lore-critical statement changed and when. Compare claim stability across pages to see which characters or settings have the most contested canon.
+Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Refract tracks these changes as `sentence_first_seen` and `sentence_removed` events, letting you see exactly which lore-critical statement changed and when. Compare claim stability across pages to see which characters or settings have the most contested canon.
 
 ## Example output
 

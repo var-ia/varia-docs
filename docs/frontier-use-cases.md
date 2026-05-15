@@ -2,7 +2,7 @@
 
 ## Core Primitive
 
-Varia turns version history into:
+Refract turns version history into:
 
 **claim + source + wording + placement + stability + time**
 
@@ -16,7 +16,7 @@ It does not report what a document says now. It explains how a claim entered, ch
 
 AI systems retrieve text as if every sentence is equally stable. They lack signals about what has been contested, recently changed, or stabilized through editorial scrutiny.
 
-Varia exposes per-claim metadata:
+Refract exposes per-claim metadata:
 
 ```json
 {
@@ -36,7 +36,7 @@ This helps retrieval systems decide whether to present a claim directly, hedge i
 
 Search across claim histories, not documents.
 
-Example queries Varia can support:
+Example queries Refract can support:
 
 - Claims about an entity that stabilized after a given date
 - Claims removed as unsourced
@@ -50,14 +50,14 @@ This is a new search primitive over version-history data.
 
 Use claim histories to test AI systems for temporal leakage.
 
-Questions answerable with Varia data:
+Questions answerable with Refract data:
 
 - Was this claim public before the model's knowledge cutoff?
 - Did the supporting source appear later?
 - Did the wording exist at the time?
 - Is the model using future knowledge?
 
-Varia provides temporal ground truth for benchmarking retrieval truthfulness, training-data audits, and knowledge-cutoff testing.
+Refract provides temporal ground truth for benchmarking retrieval truthfulness, training-data audits, and knowledge-cutoff testing.
 
 ---
 
@@ -70,7 +70,7 @@ Create a temporal knowledge graph for claims.
 Not: What does the article say now?
 But: What has this claim said over time?
 
-Varia tracks across revisions:
+Refract tracks across revisions:
 
 - Origin (first appearance)
 - Source support evolution
@@ -85,13 +85,13 @@ Reconstruct what was publicly knowable at a specific date.
 
 Example: As of March 1, 2023, what sources supported a given claim?
 
-Varia's revision-level timestamping and deterministic extraction make this auditable, with no hindsight leakage.
+Refract's revision-level timestamping and deterministic extraction make this auditable, with no hindsight leakage.
 
 ### Institutionalization of Knowledge
 
 Detect when a claim moves from rumor into durable public reference.
 
-Pattern Varia can surface:
+Pattern Refract can surface:
 
 rumor → local reporting → national reporting → institutional source → article body → article lead → stable public reference
 
@@ -101,7 +101,7 @@ Core question: When did this stop being chatter and become part of the durable p
 
 Measure which claims survive scrutiny.
 
-Varia can classify claims by survival pattern:
+Refract can classify claims by survival pattern:
 
 - Failed claim (removed and never restored)
 - Temporary claim (appeared briefly)
@@ -119,7 +119,7 @@ Varia can classify claims by survival pattern:
 
 Track how source support changes across revisions.
 
-Escalation patterns Varia detects:
+Escalation patterns Refract detects:
 
 unsourced → local source → national source → regulatory source → court ruling → academic analysis
 
@@ -131,7 +131,7 @@ secondary source removed → primary source remains → citation-needed tag → 
 
 Distinguish who is making a claim — not just what the claim says.
 
-States Varia detects:
+States Refract detects:
 
 - Direct assertion in article voice
 - Attributed to a named source
@@ -146,7 +146,7 @@ Example: "The company concealed the defect" versus "Regulators alleged that the 
 
 Detect language getting stronger, weaker, broader, or narrower.
 
-Example shifts Varia can surface:
+Example shifts Refract can surface:
 
 - caused → contributed to
 - concealed → failed to disclose
@@ -158,7 +158,7 @@ Example shifts Varia can surface:
 
 Track weak, false, or fringe claims as they move through public systems.
 
-Patterns Varia detects:
+Patterns Refract detects:
 
 - Claim introduced without source
 - Reverted as unsourced
@@ -172,7 +172,7 @@ Citogenesis detection: a claim originates on Wikipedia, gets cited by an externa
 
 Map which claims depend on which sources.
 
-If a source is corrected, discredited, or retracted, Varia can identify all affected claims across the knowledge base, enabling cascade analysis.
+If a source is corrected, discredited, or retracted, Refract can identify all affected claims across the knowledge base, enabling cascade analysis.
 
 ---
 
@@ -182,7 +182,7 @@ If a source is corrected, discredited, or retracted, Varia can identify all affe
 
 Show how a page or claim reaches a stable form.
 
-Signals Varia surfaces:
+Signals Refract surfaces:
 
 - Talk-page discussion activity
 - Revert cycles
@@ -196,7 +196,7 @@ Signals Varia surfaces:
 
 Track not just whether a claim exists, but where it appears.
 
-States Varia detects: lead, infobox, body, controversy section, footnote, caption, table, category, talk page only, removed.
+States Refract detects: lead, infobox, body, controversy section, footnote, caption, table, category, talk page only, removed.
 
 Meaningful transitions: body → lead (increased prominence), lead → body (reduced prominence), removed → restored (narrative resurrection).
 
@@ -204,7 +204,7 @@ Meaningful transitions: body → lead (increased prominence), lead → body (red
 
 Compare the same claim across language editions.
 
-Varia can surface differences in: wording, sources cited, prominence, stability timelines, and terminology across language versions of the same topic.
+Refract can surface differences in: wording, sources cited, prominence, stability timelines, and terminology across language versions of the same topic.
 
 ---
 
@@ -214,7 +214,7 @@ Varia can surface differences in: wording, sources cited, prominence, stability 
 
 Monitor how an entity or topic changes in public reference sources.
 
-What Varia surfaces:
+What Refract surfaces:
 
 - New claims added
 - Claims moving into prominent positions
@@ -239,7 +239,7 @@ Create quantitative metrics from claim-history data:
 
 Generate structured summaries from claim-history analysis.
 
-Varia can produce outputs like:
+Refract can produce outputs like:
 
 Three public claims changed materially this period.
 1.  One stabilized after regulatory sourcing.
@@ -256,7 +256,7 @@ Each statement links to the supporting evidence.
 
 Apply the same engine to public rules and guidance documents.
 
-Changes Varia can detect: requirements added or weakened, mandatory → optional transitions, deadline extensions, scope narrowing, enforcement language removed.
+Changes Refract can detect: requirements added or weakened, mandatory → optional transitions, deadline extensions, scope narrowing, enforcement language removed.
 
 ### Enterprise Knowledge Governance
 
@@ -268,7 +268,7 @@ Detect across internal documentation: unsupported claims, stale procedures, cont
 
 Track changes in publicly filed corporate documents.
 
-Varia can surface when commitments, risk factors, deadlines, or claims change in investor presentations, earnings materials, ESG reports, terms of service, or privacy policies.
+Refract can surface when commitments, risk factors, deadlines, or claims change in investor presentations, earnings materials, ESG reports, terms of service, or privacy policies.
 
 ### Legal-Document History
 
@@ -284,7 +284,7 @@ Example shifts: shall → may, all damages → direct damages, must notify withi
 
 ### General Document-History Operating System
 
-The broadest application. For any versioned document system, Varia answers:
+The broadest application. For any versioned document system, Refract answers:
 
 - What changed?
 - What claim or obligation did it affect?

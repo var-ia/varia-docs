@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use Varia to analyze the revision history of a Wikipedia page and see what changed.
+Use Refract to analyze the revision history of a Wikipedia page and see what changed.
 
 ## Steps
 
@@ -11,13 +11,13 @@ Use Varia to analyze the revision history of a Wikipedia page and see what chang
 Zero install:
 
 ```bash
-npx @var-ia/cli analyze "Earth" --depth detailed
+npx @refract-org/cli analyze "Earth" --depth detailed
 ```
 
 Or with a local install:
 
 ```bash
-bun add @var-ia/cli
+bun add @refract-org/cli
 wikihistory analyze "Earth" --depth detailed -c
 ```
 

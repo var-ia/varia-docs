@@ -1,6 +1,6 @@
 # MCP — model context protocol
 
-`wikihistory mcp` starts a JSON-RPC server over stdio that exposes the Varia engine to AI agents via the Model Context Protocol.
+`wikihistory mcp` starts a JSON-RPC server over stdio that exposes the Refract engine to AI agents via the Model Context Protocol.
 
 The MCP server supports **sampling** — it can request the host's LLM to interpret events without managing API keys or model SDKs internally.
 
@@ -108,12 +108,12 @@ When the host supports MCP sampling, the server constructs a prompt from the eve
 
 ## Bring Your Own Inference
 
-Varia never calls a model. The MCP server's `interpret` tool uses
+Refract never calls a model. The MCP server's `interpret` tool uses
 host-provided sampling — the AI application's own LLM fills in the
 interpretation. This means:
 
-- No API key configuration needed in Varia
-- The same Varia server works with any model (Claude, GPT, local Ollama)
-- Interpretations are bounded by Varia's schema (never modify deterministic events)
+- No API key configuration needed in Refract
+- The same Refract server works with any model (Claude, GPT, local Ollama)
+- Interpretations are bounded by Refract's schema (never modify deterministic events)
 - MCP `sampling/createMessage` requests are handled asynchronously so the server
   can continue processing while waiting for the host's LLM response

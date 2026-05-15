@@ -36,7 +36,7 @@ Correlate revert timestamps with talk page revision timestamps to identify dispu
 
 ## Use case: editorial dispute analysis
 
-Revert clusters combined with talk page activity indicate dispute intensity. High revert frequency with little talk page discussion suggests unilateral editing or edit-warring. Reverts accompanied by long talk threads indicate active deliberation. Varia's deterministic events let you quantify both dimensions from the same L1 pipeline.
+Revert clusters combined with talk page activity indicate dispute intensity. High revert frequency with little talk page discussion suggests unilateral editing or edit-warring. Reverts accompanied by long talk threads indicate active deliberation. Refract's deterministic events let you quantify both dimensions from the same L1 pipeline.
 
 ## Example output
 
@@ -94,4 +94,4 @@ Revert clusters combined with talk page activity indicate dispute intensity. Hig
 
 - Talk pages use the standard MediaWiki API; prefix the page title with `Talk:`.
 - Consider caching with `-c` when fetching both article and talk revisions.
-- Varia exposes an optional `user` field on `Revision` objects when the Wikipedia API returns editor information. Evidence events do not carry editor attribution — the `revert_detected` event does not include a `revertedBy` field.
+- Refract exposes an optional `user` field on `Revision` objects when the Wikipedia API returns editor information. Evidence events do not carry editor attribution — the `revert_detected` event does not include a `revertedBy` field.

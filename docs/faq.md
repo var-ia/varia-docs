@@ -2,7 +2,7 @@
 
 ## Rate limits
 
-Varia respects the MediaWiki API's `maxlag` parameter and backs off automatically. If you see `429 Too Many Requests`, wait a few minutes before retrying. Use `-c` / `--cache` to avoid re-fetching pages you've already analyzed.
+Refract respects the MediaWiki API's `maxlag` parameter and backs off automatically. If you see `429 Too Many Requests`, wait a few minutes before retrying. Use `-c` / `--cache` to avoid re-fetching pages you've already analyzed.
 
 ## "Page too large" errors
 
@@ -38,7 +38,7 @@ Supported auth methods: bearer token (`--api-key`), basic auth (`--api-user` + `
 If results seem stale, clear the cache:
 
 ```bash
-rm -rf ~/.wikihistory/varia.db
+rm -rf ~/.wikihistory/refract.db
 ```
 
 Or use `--cache-dir` to point at a fresh location.

@@ -15,7 +15,7 @@ wikihistory analyze [page] [options]
 | `--from <revId>` | — | Start revision ID |
 | `--to <revId>` | — | End revision ID |
 | `--since <ts>` | — | Filter revisions after this ISO timestamp |
-| `-c, --cache` | off | Cache revisions in SQLite (`~/.wikihistory/varia.db`) |
+| `-c, --cache` | off | Cache revisions in SQLite (`~/.wikihistory/refract.db`) |
 | `--pages-file <path>` | — | Batch file of page titles (one per line) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 | `--cache-dir <path>` | `~/.wikihistory` | Cache directory path |

@@ -1,8 +1,8 @@
-# Sequent Docs
+# Refract Docs
 
-Public documentation for [Sequent](https://github.com/var-ia/varia) — the git log for public knowledge.
+Public documentation for [Refract](https://github.com/refract-org/refract) — the git log for public knowledge.
 
-**Sequent answers: "What changed?"**
+**Refract answers: "What changed?"**
 
 ---
 
@@ -12,7 +12,7 @@ Public documentation for [Sequent](https://github.com/var-ia/varia) — the git 
 
 ```bash
 # One command, zero install
-npx @var-ia/cli analyze "Earth" --depth brief
+npx @refract-org/cli analyze "Earth" --depth brief
 ```
 
 See [quickstart](https://var-ia.github.io/refract-docs/quickstart/) for a full walkthrough.
@@ -21,17 +21,17 @@ See [quickstart](https://var-ia.github.io/refract-docs/quickstart/) for a full w
 
 | Package | Status | License | Description |
 |---|---|---|---|
-| `@var-ia/evidence-graph` | [![npm](https://img.shields.io/npm/v/@var-ia/evidence-graph)](https://www.npmjs.com/package/@var-ia/evidence-graph) | CC0-1.0 | Core types & event schemas |
-| `@var-ia/ingestion` | [![npm](https://img.shields.io/npm/v/@var-ia/ingestion)](https://www.npmjs.com/package/@var-ia/ingestion) | AGPL-3.0 | Wikimedia API adapters |
-| `@var-ia/analyzers` | [![npm](https://img.shields.io/npm/v/@var-ia/analyzers)](https://www.npmjs.com/package/@var-ia/analyzers) | AGPL-3.0 | Deterministic analyzers |
-| `@var-ia/cli` | [![npm](https://img.shields.io/npm/v/@var-ia/cli)](https://www.npmjs.com/package/@var-ia/cli) | AGPL-3.0 | CLI tool (`wikihistory`) |
-| `@var-ia/persistence` | Not published | AGPL-3.0 | SQLite storage |
-| `@var-ia/eval` | Not published | AGPL-3.0 | Evaluation harness |
-| `@var-ia/observable` | Not published | AGPL-3.0 | Observable data loader |
+| `@refract-org/evidence-graph` | [![npm](https://img.shields.io/npm/v/@refract-org/evidence-graph)](https://www.npmjs.com/package/@refract-org/evidence-graph) | CC0-1.0 | Core types & event schemas |
+| `@refract-org/ingestion` | [![npm](https://img.shields.io/npm/v/@refract-org/ingestion)](https://www.npmjs.com/package/@refract-org/ingestion) | AGPL-3.0 | Wikimedia API adapters |
+| `@refract-org/analyzers` | [![npm](https://img.shields.io/npm/v/@refract-org/analyzers)](https://www.npmjs.com/package/@refract-org/analyzers) | AGPL-3.0 | Deterministic analyzers |
+| `@refract-org/cli` | [![npm](https://img.shields.io/npm/v/@refract-org/cli)](https://www.npmjs.com/package/@refract-org/cli) | AGPL-3.0 | CLI tool (`wikihistory`) |
+| `@refract-org/persistence` | Not published | AGPL-3.0 | SQLite storage |
+| `@refract-org/eval` | Not published | AGPL-3.0 | Evaluation harness |
+| `@refract-org/observable` | Not published | AGPL-3.0 | Observable data loader |
 
 ## Project status
 
-Sequent is actively developed by [NextConsensus](https://nextconsensus.com). v0.3.1 — deterministic observation layer is production-quality.
+Refract is actively developed by [NextConsensus](https://nextconsensus.com). v0.3.1 — deterministic observation layer is production-quality.
 
 ## License
 

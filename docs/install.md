@@ -10,23 +10,23 @@
 No download needed — runs directly from npm:
 
 ```bash
-npx @var-ia/cli analyze "Earth" --depth brief
+npx @refract-org/cli analyze "Earth" --depth brief
 ```
 
 With bun (if installed):
 
 ```bash
-bunx @var-ia/cli analyze "Earth" --depth brief
+bunx @refract-org/cli analyze "Earth" --depth brief
 ```
 
 ## Local install
 
 ```bash
 # with bun
-bun add -g @var-ia/cli
+bun add -g @refract-org/cli
 
 # with npm
-npm install -g @var-ia/cli
+npm install -g @refract-org/cli
 ```
 
 Then use the `wikihistory` command directly:
@@ -46,17 +46,17 @@ docker run ghcr.io/var-ia/cli analyze "Earth" --depth brief
 Or build from source:
 
 ```bash
-git clone https://github.com/var-ia/varia.git
-cd varia
-docker build -t varia .
-docker run --rm varia analyze "Earth" --depth brief
+git clone https://github.com/refract-org/refract.git
+cd refract
+docker build -t refract .
+docker run --rm refract analyze "Earth" --depth brief
 ```
 
 ## From source
 
 ```bash
-git clone https://github.com/var-ia/varia.git
-cd varia
+git clone https://github.com/refract-org/refract.git
+cd refract
 bun install
 bun run build
 ```
