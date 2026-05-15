@@ -6,7 +6,7 @@ Public documentation for [Sequent](https://github.com/var-ia/varia) — the git 
 
 ---
 
-**Live at:** [var-ia.github.io/sequent-docs](https://var-ia.github.io/sequent-docs/)
+**Live at:** [var-ia.github.io/refract-docs](https://var-ia.github.io/refract-docs/)
 
 ## Quick start
 
@@ -15,7 +15,7 @@ Public documentation for [Sequent](https://github.com/var-ia/varia) — the git 
 npx @var-ia/cli analyze "Earth" --depth brief
 ```
 
-See [quickstart](https://var-ia.github.io/sequent-docs/quickstart/) for a full walkthrough.
+See [quickstart](https://var-ia.github.io/refract-docs/quickstart/) for a full walkthrough.
 
 ## Packages
 
