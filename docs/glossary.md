@@ -1,0 +1,25 @@
+# Glossary
+
+**Claim** — A distinct statement of fact within an article, identified by its text content. Claims are tracked across revisions via `createClaimIdentity` in `@var-ia/evidence-graph`. Not to be confused with "claim" in a legal or insurance context.
+
+**Deterministic fact** — A structured statement produced by an analyzer explaining why an event was emitted. Each fact includes the analyzer name, version, and input hashes for reproducibility.
+
+**Deterministic observation engine** — Varia's core design: given the same revision range, the same events are always produced. No model, no randomness, no variance.
+
+**Downstream consumer** — A system that consumes Varia's event stream without modifying it. NextConsensus is a downstream consumer that attaches model interpretation.
+
+**Event** — A unit of change between two revisions. Every event has an `eventType`, revision range (`fromRevisionId` → `toRevisionId`), section context, before/after snapshots, and deterministic facts. See [schema](schema.md).
+
+**Evidence layer** — A classification of how an event was produced: `observed` (directly from diff), `policy_coded` (matched against a rule), `model_interpretation` (set by downstream), `speculative` (inferred), or `unknown`.
+
+**Ground truth** — Independently verified outcome labels (talk page consensus, RFC closures, ArbCom decisions) stored in the `@var-ia/eval` package. Used to validate pipeline output, never redefined by it.
+
+**L1 / L3** — Legacy terminology for the two layers: L1 (deterministic analysis) and L3 (ground truth validation). The preferred terms are "deterministic" and "ground truth."
+
+**MediaWiki** — The open-source wiki engine used by Wikipedia, Fandom, and thousands of other wikis. Varia works with any MediaWiki instance that exposes an `api.php` endpoint.
+
+**Provenance** — Metadata attached to each deterministic fact recording which analyzer produced it, what version, and which input data was used. Enables auditability.
+
+**Revision** — A single version of a page. Revisions are identified by numeric IDs and ordered by timestamp.
+
+**Revision range** — A contiguous span of revisions between a `fromRevisionId` and `toRevisionId`. Varia diffs adjacent revisions within the range to produce events.

@@ -51,7 +51,7 @@ import { createClaimIdentity, createEventIdentity } from "@var-ia/evidence-graph
 ```
 
 Key exports:
-- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`
+- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`, `ModelInterpretation`
 - Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`
 - Utilities: `createClaimIdentity`, `createEventIdentity`
 - Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
@@ -118,6 +118,18 @@ const events = await db.getEvents({ pageTitle: "Earth" });
 ```
 
 Key exports: `Persistence` (class), `PersistenceAdapter` (interface), `PersistenceConfig`
+
+### `@var-ia/observable`
+
+Observable Framework data loader for embedding Varia queries in Observable dashboards.
+
+```typescript
+import { VariaDataLoader } from "@var-ia/observable";
+```
+
+This package is designed for use with [Observable Framework](https://observablehq.com/framework/) data loaders. It is not published to npm — use from source or copy the loader pattern directly.
+
+---
 
 ### `@var-ia/eval`
 

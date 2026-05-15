@@ -40,14 +40,14 @@ wikihistory watch "Darth_Vader" --api https://starwars.fandom.com/api.php --inte
 
 ## Use case: preserving canonicity
 
-Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `claim_first_seen` and `claim_removed` events, letting you see exactly which lore-critical statement changed and when. Compare claim stability across pages to see which characters or settings have the most contested canon.
+Fandom canon pages drift as new media releases or retcons earlier material. Character backstories, power levels, timelines, and faction alignments are frequently updated. Varia tracks these changes as `sentence_first_seen` and `sentence_removed` events, letting you see exactly which lore-critical statement changed and when. Compare claim stability across pages to see which characters or settings have the most contested canon.
 
 ## Example output
 
 ```json
 {
   "eventId": "f7a2d0e3c1b84906",
-  "eventType": "claim_first_seen",
+  "eventType": "sentence_first_seen",
   "fromRevisionId": 1280012345,
   "toRevisionId": 1280016789,
   "section": "Powers and abilities",
@@ -57,7 +57,7 @@ Fandom canon pages drift as new media releases or retcons earlier material. Char
   "layer": "observed",
   "deterministicFacts": [
     {
-      "fact": "New claim first appeared: Darth Vader's midichlorian count is over 20,000",
+      "fact": "New sentence first appeared: Darth Vader's midichlorian count is over 20,000",
       "provenance": {
         "analyzer": "section-differ",
         "version": "0.3.1",

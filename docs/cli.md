@@ -11,10 +11,10 @@ wikihistory analyze [page] [options]
 | Flag | Default | Description |
 |---|---|---|
 | `page` | required (positional) | Page title |
-| `-d, --depth <d>` | `detailed` | Analysis depth: `brief`, `detailed`, `forensic` |
+| `-d, --depth <d>` | `detailed` | Analysis depth: `brief`, `detailed`, `forensic`. See [depth levels](depth.md). |
 | `--from <revId>` | — | Start revision ID |
 | `--to <revId>` | — | End revision ID |
-| `--since <ts>` | — | Re-observe from ISO timestamp |
+| `--since <ts>` | — | Filter revisions after this ISO timestamp |
 | `-c, --cache` | off | Cache revisions in SQLite (`~/.wikihistory/varia.db`) |
 | `--pages-file <path>` | — | Batch file of page titles (one per line) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
@@ -66,7 +66,7 @@ wikihistory diff <topic> [options]
 | `--wiki-a <url>` | required | First wiki API URL |
 | `--wiki-b <url>` | required | Second wiki API URL |
 | `--wiki-c <url>` | optional | Third wiki API URL |
-| `-d, --depth <d>` | `detailed` | Analysis depth |
+| `-d, --depth <d>` | `detailed` | Analysis depth. See [depth levels](depth.md) |
 
 ## `wikihistory eval`
 
@@ -93,8 +93,8 @@ wikihistory export <page> [options]
 |---|---|---|
 | `page` | required (positional) | Page title |
 | `-f, --format <fmt>` | `json` | Output format: `json`, `csv`, `ndjson` |
-| `--bundle` | off | Export as signed evidence bundle (SHA-256) |
-| `--manifest` | off | Export as replay manifest with all hashes |
+| `--bundle` | off | Export as signed evidence bundle (SHA-256). See [bundle format](bundle-manifest.md). |
+| `--manifest` | off | Export as replay manifest with all hashes. See [manifest format](bundle-manifest.md). |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
 ## `wikihistory explore`

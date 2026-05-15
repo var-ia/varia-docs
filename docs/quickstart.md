@@ -29,6 +29,14 @@ By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth"
 
 Output is printed to stdout as structured JSON.
 
+## View results in the web UI
+
+```bash
+wikihistory explore "Earth"
+```
+
+Opens a local web server (default port 8899) with a timeline view, evidence table, and diff viewer — the most user-friendly way to browse results.
+
 ## Saving output
 
 ```bash
@@ -41,4 +49,5 @@ Use `wikihistory export` to format output as json, csv, ndjson, a signed bundle 
 
 - [Concepts](concepts.md)
 - [CLI reference](cli.md)
+- [Analysis depth levels](depth.md)
 - [Tutorial: Track Wikipedia changes](tutorials/wikipedia-history.md)

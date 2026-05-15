@@ -1,6 +1,6 @@
 # Event schema reference
 
-## `EventType` — all 29 event types
+## `EventType` — all 25 event types
 
 ```typescript
 export type EventType =
@@ -63,6 +63,7 @@ export interface EvidenceEvent {
   before: string;                                // text / state before the change
   after: string;                                 // text / state after the change
   deterministicFacts: DeterministicFact[];       // facts backing this event
+  modelInterpretation?: ModelInterpretation;     // set by downstream consumers
   layer: EvidenceLayer;                          // provenance layer
   timestamp: string;                             // ISO 8601
 }
@@ -73,7 +74,10 @@ export interface EvidenceEvent {
 ```typescript
 export type EvidenceLayer =
   | "observed"              // directly observed from the diff
-  | "policy_coded";         // coded against a policy rule
+  | "policy_coded"          // coded against a policy rule
+  | "model_interpretation"  // set by downstream consumers (e.g., NextConsensus)
+  | "speculative"           // inferred but without a hard rule
+  | "unknown";              // layer not yet classified
 
 export interface DeterministicFact {
   fact: string;
@@ -86,12 +90,42 @@ export interface FactProvenance {
   version: string;         // analyzer version
   inputHashes: string[];   // hashes of input data used
 }
+
+export interface ModelInterpretation {
+  semanticChange: string;
+  confidence: number;
+  policyDimension?: PolicyDimension;
+  discussionType?:
+    | "notability_challenge"
+    | "sourcing_dispute"
+    | "neutrality_concern"
+    | "content_deletion"
+    | "content_addition"
+    | "naming_dispute"
+    | "procedural"
+    | "other";
+}
+
+export type PolicyDimension =
+  | "verifiability"
+  | "npov"
+  | "blp"
+  | "due_weight"
+  | "protection"
+  | "edit_warring"
+  | "notability"
+  | "copyright"
+  | "civility";
 ```
+
+`ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Varia's deterministic pipeline — they exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the deterministic event.
 
 ## Deterministic identity
 
 `eventId` is derived deterministically from the event content so the same
 observation always produces the same ID:
+
+`modelInterpretation` is excluded from the hash so downstream consumers can add it without changing the event's deterministic identity.
 
 ```typescript
 import { createHash } from "node:crypto";
