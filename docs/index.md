@@ -13,10 +13,15 @@ Varia is a domain-neutral observability layer for public knowledge. It ingests r
 ## Contents
 
 - [Quick start](quickstart.md)
+- [Install](install.md)
 - [Concepts: Three-Knowledge-Split](concepts.md)
 - [Event schema reference](schema.md)
+- [Event taxonomy](events.md)
 - [CLI command reference](cli.md)
 - [SDK / package reference](sdk.md)
+- [MCP: AI agent integration](mcp.md)
+- [Naming conventions](naming.md)
+- [Security](security.md)
 - [Tutorials](tutorials/wikipedia-history.md)
 - [Boundary](boundary.md)
 - [Frontier use cases](frontier-use-cases.md)
