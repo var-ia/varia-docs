@@ -25,7 +25,7 @@ npx wikihistory analyze "Earth"
 wikihistory analyze "Earth"
 ```
 
-By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth" and runs all available L1 analyzers (section changes, citation changes, revert detection, template changes). Use `--from` and `--to` to scope to a specific revision range.
+By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth" and runs all available deterministic analyzers (section changes, citation changes, revert detection, template changes). Use `--from` and `--to` to scope to a specific revision range.
 
 Output is printed to stdout as structured JSON.
 
@@ -39,6 +39,6 @@ Use `wikihistory export` to format output as json, csv, ndjson, a signed bundle 
 
 ## Next steps
 
-- [Concepts: Three-Knowledge-Split](concepts.md)
+- [Concepts](concepts.md)
 - [CLI reference](cli.md)
 - [Tutorial: Track Wikipedia changes](tutorials/wikipedia-history.md)

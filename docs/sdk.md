@@ -121,10 +121,10 @@ Key exports: `Persistence` (class), `PersistenceAdapter` (interface), `Persisten
 
 ### `@var-ia/eval`
 
-Evaluation harness for measuring analyzer and model accuracy against L3 ground truth labels.
+Evaluation harness for measuring analyzer accuracy against ground truth labels.
 
 ```typescript
-import { createEvalHarness, runL2Benchmark, validateAgainstGroundTruth } from "@var-ia/eval";
+import { createEvalHarness, validateAgainstGroundTruth } from "@var-ia/eval";
 ```
 
-Key exports: `createEvalHarness`, `runL2Benchmark`, `printBenchmarkResult`, `validateAgainstGroundTruth`, `buildL2Dataset`, `computeCalibration`, `GROUND_TRUTH_LABELS`, `getGroundTruthById`, `getGroundTruthForPage`
+Key exports: `createEvalHarness`, `validateAgainstGroundTruth`, `EvalHarness`, `GROUND_TRUTH_LABELS`, `getGroundTruthById`, `getGroundTruthForPage`

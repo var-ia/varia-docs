@@ -83,8 +83,7 @@ wikihistory eval [options]
 | Flag | Default | Description |
 |---|---|---|
 | `--page <title>` | — | Run only for a specific page |
-| `--ground-truth <p\|b>` | — | Validate against L3 ground truth |
-| `--l2` | off | Run L2 quality benchmarks |
+| `--ground-truth <path\|builtin>` | — | Validate against ground truth labels |
 
 ## `wikihistory export`
 

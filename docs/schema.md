@@ -62,8 +62,7 @@ export interface EvidenceEvent {
   section: string;                               // section title where change occurred
   before: string;                                // text / state before the change
   after: string;                                 // text / state after the change
-  deterministicFacts: DeterministicFact[];       // L1 facts backing this event
-  modelInterpretation?: ModelInterpretation;     // L2 interpretation (never present for L1 events)
+  deterministicFacts: DeterministicFact[];       // facts backing this event
   layer: EvidenceLayer;                          // provenance layer
   timestamp: string;                             // ISO 8601
 }
@@ -74,10 +73,7 @@ export interface EvidenceEvent {
 ```typescript
 export type EvidenceLayer =
   | "observed"              // directly observed from the diff
-  | "policy_coded"          // coded against a policy rule
-  | "model_interpretation"  // produced by an L2 model
-  | "speculative"           // low-confidence inference
-  | "unknown";              // layer could not be determined
+  | "policy_coded";         // coded against a policy rule
 
 export interface DeterministicFact {
   fact: string;
@@ -90,36 +86,6 @@ export interface FactProvenance {
   version: string;         // analyzer version
   inputHashes: string[];   // hashes of input data used
 }
-```
-
-## `ModelInterpretation` (L2 only)
-
-```typescript
-export interface ModelInterpretation {
-  semanticChange: string;                          // natural-language summary of the change
-  confidence: number;                              // 0–1 confidence score
-  policyDimension?: PolicyDimension;               // which policy is most relevant
-  discussionType?:                                // talk-page discussion category
-    | "notability_challenge"
-    | "sourcing_dispute"
-    | "neutrality_concern"
-    | "content_deletion"
-    | "content_addition"
-    | "naming_dispute"
-    | "procedural"
-    | "other";
-}
-
-export type PolicyDimension =
-  | "verifiability"
-  | "npov"
-  | "blp"
-  | "due_weight"
-  | "protection"
-  | "edit_warring"
-  | "notability"
-  | "copyright"
-  | "civility";
 ```
 
 ## Deterministic identity
@@ -144,5 +110,3 @@ export function createEventIdentity(
 ```
 
 The hash is truncated to 16 hex characters (64 bits of collision resistance).
-Because `modelInterpretation` is excluded from the hash, the same L1 evidence
-always resolves to the same event ID regardless of L2 interpretation changes.

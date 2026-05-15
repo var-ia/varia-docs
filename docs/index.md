@@ -6,15 +6,14 @@ Varia is a domain-neutral observability layer for public knowledge. It ingests r
 
 ## Why Varia?
 
-- **Deterministic by default.** L1 analysis is byte-for-byte reproducible. No model, no variance.
-- **Three-Knowledge-Split.** Separate layers for observable facts, model-assisted interpretation, and independent ground truth.
-- **Pluggable architecture.** Swap analyzers, storage backends, and model adapters without changing the core pipeline.
+- **Deterministic by default.** Analysis is byte-for-byte reproducible. No model, no variance.
+- **Provenance-tagged.** Every event carries revision, section, and timestamp context.
+- **Pluggable architecture.** Swap analyzers and storage backends without changing the core pipeline.
 
 ## Contents
 
 - [Quick start](quickstart.md)
 - [Install](install.md)
-- [Concepts: Three-Knowledge-Split](concepts.md)
 - [Event schema reference](schema.md)
 - [Event taxonomy](events.md)
 - [CLI command reference](cli.md)
@@ -28,6 +27,4 @@ Varia is a domain-neutral observability layer for public knowledge. It ingests r
 
 ## Open source
 
-**What changed?** — Everything Varia produces is auditable, reproducible, and inspectable.
-
-**Not included** — Domain-specific decision judgment. Varia observes change. It does not tell you what to do about it.
+Varia is open source under AGPL-3.0.

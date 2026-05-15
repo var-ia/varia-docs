@@ -1,82 +1,47 @@
-# Concepts: Three-Knowledge-Split
+# Concepts
 
-Varia separates knowledge into three layers that never mix.
+Varia is a deterministic observation engine. It extracts structured evidence from revision histories without calling any model.
 
-## L1 — Deterministic (observable facts)
+## How it works
 
-Byte-for-byte reproducible analysis of revision histories. No model is ever called at L1. Every output is a function of the input alone.
+```
+Wikipedia API → Fetch revisions → Run analyzers → Produce events
+```
 
-**What L1 produces:**
-- Section additions, removals, renames
-- Citation additions and removals
-- Revert events (exact, partial)
-- Template changes
+Every step is byte-for-byte reproducible. Given the same revision range, Varia always produces the same output.
 
-**Invariant:** L1 never calls a model.
+## Pipeline stages
 
-## L2 — Model-Assisted (interpretation)
+| Stage | What it does | Reproducible? |
+|-------|-------------|---------------|
+| **Fetch** | Retrieves revisions from the MediaWiki API, handles rate limits, pagination | Yes |
+| **Analyze** | Runs deterministic analyzers — section diffs, citation tracking, revert detection, template classification, category/wikilink extraction | Yes |
+| **Report** | Assembles structured events with revision, section, and timestamp provenance | Yes |
+| **Validate** | Optional: compares pipeline output against ground truth labels (eval package) | Yes |
 
-Receives only L1 evidence (never raw wikitext). Produces structured interpretations with confidence scores.
+## Output model
 
-**What L2 produces:**
-- Claim classifications
-- Edit summaries
-- Intent categorizations
+The pipeline produces timed `EvidenceEvent` objects with 25 event types, all mechanical:
 
-**Invariant:** L2 never sees raw Wikipedia text.
-
-## L3 — Independent Ground Truth
-
-Talk page consensus, RFC closures, ArbCom decisions, published corrections. These are sourced independently and never redefined by L1 or L2.
-
-**Invariant:** L3 is never redefined by L1 or L2.
-
-## L2 — Model Adapter Providers
-
-Varia supports multiple model providers without coupling to any one:
-- **OpenAI** — GPT-4, GPT-4o
-- **Anthropic** — Claude 3.5 Sonnet, Claude 3 Opus
-- **DeepSeek** — DeepSeek V2
-- **Ollama (local)** — llama.cpp-based models running on your own machine
-- **BYOK** — Bring your own key to any OpenAI-compatible endpoint
-
-## Confidence Scores
-
-Every L2 interpretation carries a `confidence` score (0.0–1.0). The system supports calibration correction to map raw model confidence to empirical accuracy via bin-based calibration.
-
-## Cascading & Consensus
-
-- **CascadingRouter** — tries a primary adapter, falls back to cheaper/secondary if confidence is below threshold
-- **ConsensusAdapter** — runs multiple adapters, picks the majority interpretation
-- **CalibratedAdapter** — wraps any adapter with calibration bin correction
-
-## L3 — Ground Truth Sources
-
-Independent ground truth can come from:
-- Talk page RFC closures
-- Arbitration Committee (ArbCom) decisions
-- Page protection events logged by administrators
-- Published corrections and retractions
-- External reliable source assessments
-
-## Design Principles
-
-1. **No single accuracy score** conflates layers. L1 accuracy is 100% by construction. L2 is measured per-adapter. L3 is independently sourced.
-2. **Every interpretation** carries a confidence score. No unconfident output escapes L2.
-3. **Deterministic facts** are always presented before interpretations. Consumers see the observable evidence before the model's reading of it.
-4. **Layers are independently testable.** You can evaluate L2 without L3, and L3 without L2.
-
-## Event Model
-
-All L1 output is structured as typed events:
-
-- **Claim events**: claim_first_seen, claim_removed, claim_softened, claim_strengthened, claim_reworded, claim_moved, claim_reintroduced
-- **Citation events**: citation_added, citation_removed, citation_replaced
-- **Template events**: template_added, template_removed, template_parameter_changed
-- **Revert/conflict events**: revert_detected, edit_cluster_detected
-- **Section/page events**: section_reorganized, lead_promotion, lead_demotion, page_moved
-- **Link/category events**: wikilink_added, wikilink_removed, category_added, category_removed
-- **Protection events**: protection_changed
-- **Talk page events**: talk_page_correlated, talk_thread_opened, talk_thread_archived, talk_reply_added, talk_activity_spike
+- **Sentence events**: `sentence_first_seen`, `sentence_removed`, `sentence_reintroduced`
+- **Citation events**: `citation_added`, `citation_removed`, `citation_replaced`
+- **Section events**: `section_reorganized`
+- **Template events**: `template_added`, `template_removed`, `template_parameter_changed`
+- **Revert events**: `revert_detected`
+- **Cluster/activity events**: `edit_cluster_detected`, `talk_activity_spike`
+- **Page events**: `lead_promotion`, `lead_demotion`, `page_moved`
+- **Link/category events**: `wikilink_added`, `wikilink_removed`, `category_added`, `category_removed`
+- **Protection events**: `protection_changed`
+- **Talk page events**: `talk_page_correlated`, `talk_thread_opened`, `talk_thread_archived`, `talk_reply_added`
 
 See [schema.md](schema.md) for the full reference.
+
+## What Varia does not do
+
+- No model interpretation — semantic analysis of what a change means is handled by downstream systems (e.g., NextConsensus)
+- No truth claims — Varia reports what changed, not whether the change is accurate
+- No prediction, sentiment analysis, or editor scoring
+
+## Independent ground truth
+
+The eval package stores outcome labels (talk page consensus, RFC closures, ArbCom decisions) independently from pipeline output. These are used for validation and benchmarking, never redefined by pipeline analysis.

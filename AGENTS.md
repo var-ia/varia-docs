@@ -10,7 +10,7 @@ AGENTS.md                     # This file
 docs/
   index.md                    # Homepage
   quickstart.md               # Quick start guide
-  concepts.md                 # Three-Knowledge-Split architecture
+  concepts.md                 # Architecture concepts
   schema.md                   # Event schema reference
   cli.md                      # CLI command reference
   sdk.md                      # SDK / package reference
@@ -36,8 +36,8 @@ docs/
 - Use `Varia` (capital V) as the project name.
 - Reference packages as `@var-ia/<name>`.
 - Reference the CLI as `wikihistory`.
-- Use "Three-Knowledge-Split" (hyphenated, capitalized).
-- L1/L2/L3 references should be deterministic/model/ground truth on first mention.
+- Describe Varia as a deterministic observation engine.
+- L1/L2/L3 references are legacy — prefer "deterministic" / "ground truth".
 
 ## Build
 
