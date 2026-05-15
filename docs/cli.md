@@ -17,8 +17,6 @@ wikihistory analyze [page] [options]
 | `--since <ts>` | — | Re-observe from ISO timestamp |
 | `-c, --cache` | off | Cache revisions in SQLite (`~/.wikihistory/varia.db`) |
 | `--pages-file <path>` | — | Batch file of page titles (one per line) |
-| `--router` | off | Use local open-weight models via Ollama |
-| `-m, --model <p>` | — | Model provider: `openai`, `anthropic`, `deepseek`, `local`, `byok` |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 | `--cache-dir <path>` | `~/.wikihistory` | Cache directory path |
 
@@ -35,7 +33,6 @@ wikihistory claim <page> [options]
 | `page` | required (positional) | Page title |
 | `-t, --text <text>` | required | Claim text to track |
 | `-c, --cache` | off | Cache revisions in SQLite |
-| `-m, --model <p>` | — | Model provider |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
 ## `wikihistory cron`
@@ -70,7 +67,6 @@ wikihistory diff <topic> [options]
 | `--wiki-b <url>` | required | Second wiki API URL |
 | `--wiki-c <url>` | optional | Third wiki API URL |
 | `-d, --depth <d>` | `detailed` | Analysis depth |
-| `-m, --model <p>` | — | Model provider |
 
 ## `wikihistory eval`
 
@@ -99,7 +95,6 @@ wikihistory export <page> [options]
 | `-f, --format <fmt>` | `json` | Output format: `json`, `csv`, `ndjson` |
 | `--bundle` | off | Export as signed evidence bundle (SHA-256) |
 | `--manifest` | off | Export as replay manifest with all hashes |
-| `-m, --model <p>` | — | Model provider |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
 ## `wikihistory explore`
@@ -166,8 +161,3 @@ These options apply to most commands:
 | `--api-key <token>` | API key for bearer token auth |
 | `--api-user <user>` | Username for basic auth |
 | `--api-password <pass>` | Password for basic auth |
-| `--model-api-key <key>` | API key for model provider |
-| `--model-name <name>` | Model name override |
-| `--model-endpoint <url>` | API endpoint override |
-| `--temperature <n>` | Model temperature (default: 0.1) |
-| `--prompt <text>` | Override system prompt for interpretation |

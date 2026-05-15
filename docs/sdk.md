@@ -51,7 +51,7 @@ import { createClaimIdentity, createEventIdentity } from "@var-ia/evidence-graph
 ```
 
 Key exports:
-- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`, `ModelInterpretation`
+- Interfaces: `EvidenceEvent`, `Revision`, `DeterministicFact`
 - Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`
 - Utilities: `createClaimIdentity`, `createEventIdentity`
 - Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
