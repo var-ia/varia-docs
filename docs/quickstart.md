@@ -19,15 +19,17 @@ npx @refract-org/cli analyze "Earth" --depth brief
 
 ```bash
 bun add @refract-org/cli
-wikihistory analyze "Earth" --depth brief
+refract analyze "Earth" --depth brief
 ```
+
+(`wikihistory` also works as an alias.)
 
 See [installation](install.md) for all options (bun, npm, Docker, from source).
 
 ## Your first analysis
 
 ```bash
-wikihistory analyze "Earth"
+refract analyze "Earth"
 ```
 
 By default, this fetches up to 20 recent revisions of the Wikipedia page "Earth" and runs all available deterministic analyzers (section changes, citation changes, revert detection, template changes). Use `--from` and `--to` to scope to a specific revision range.
@@ -37,7 +39,7 @@ Output is printed to stdout as structured JSON.
 ## View results in the web UI
 
 ```bash
-wikihistory explore "Earth"
+refract explore "Earth"
 ```
 
 Opens a local web server (default port 8899) with a timeline view, evidence table, and diff viewer — the most user-friendly way to browse results.
@@ -45,10 +47,10 @@ Opens a local web server (default port 8899) with a timeline view, evidence tabl
 ## Saving output
 
 ```bash
-wikihistory export "Earth" --format ndjson > earth-events.jsonl
+refract export "Earth" --format ndjson > earth-events.jsonl
 ```
 
-Use `wikihistory export` to format output as json, csv, ndjson, html, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
+Use `refract export` to format output as json, csv, ndjson, html, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
 
 ## Next steps
 

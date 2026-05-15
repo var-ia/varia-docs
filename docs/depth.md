@@ -17,5 +17,5 @@ The `--depth` flag controls how many analyzers run and how aggressively they par
 Example:
 
 ```bash
-wikihistory analyze "Earth" --depth forensic --cache
+refract analyze "Earth" --depth forensic --cache
 ```

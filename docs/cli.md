@@ -1,11 +1,11 @@
 # CLI command reference
 
-## `wikihistory analyze`
+## `refract analyze`
 
-Analyze full edit history of a page.
+Analyze full edit history of a page. (`wikihistory analyze` also works.)
 
 ```bash
-wikihistory analyze [page] [options]
+refract analyze [page] [options]
 ```
 
 | Flag | Default | Description |
@@ -15,17 +15,17 @@ wikihistory analyze [page] [options]
 | `--from <revId>` | — | Start revision ID |
 | `--to <revId>` | — | End revision ID |
 | `--since <ts>` | — | Filter revisions after this ISO timestamp |
-| `-c, --cache` | off | Cache revisions in SQLite (`~/.wikihistory/refract.db`) |
+| `-c, --cache` | off | Cache revisions in SQLite (`~/.refract/cache.db`) |
 | `--pages-file <path>` | — | Batch file of page titles (one per line) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
-| `--cache-dir <path>` | `~/.wikihistory` | Cache directory path |
+| `--cache-dir <path>` | `~/.refract` | Cache directory path |
 
-## `wikihistory claim`
+## `refract claim`
 
-Track a specific claim across revisions.
+Track a specific claim across revisions. (`wikihistory claim` also works.)
 
 ```bash
-wikihistory claim <page> [options]
+refract claim <page> [options]
 ```
 
 | Flag | Default | Description |
@@ -35,12 +35,12 @@ wikihistory claim <page> [options]
 | `-c, --cache` | off | Cache revisions in SQLite |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory cron`
+## `refract cron`
 
-One-shot re-observation for cron.
+One-shot re-observation for cron scheduling. (`wikihistory cron` also works.)
 
 ```bash
-wikihistory cron <pages-file> [options]
+refract cron <pages-file> [options]
 ```
 
 | Flag | Default | Description |
@@ -52,12 +52,12 @@ wikihistory cron <pages-file> [options]
 | `--notify-webhook <u>` | — | Send generic webhook POST on changes |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory diff`
+## `refract diff`
 
-Cross-wiki comparison (2+ wikis).
+Cross-wiki comparison (2+ wikis). (`wikihistory diff` also works.)
 
 ```bash
-wikihistory diff <topic> [options]
+refract diff <topic> [options]
 ```
 
 | Flag | Default | Description |
@@ -68,12 +68,12 @@ wikihistory diff <topic> [options]
 | `--wiki-c <url>` | optional | Third wiki API URL |
 | `-d, --depth <d>` | `detailed` | Analysis depth. See [depth levels](depth.md) |
 
-## `wikihistory eval`
+## `refract eval`
 
-Run the evaluation harness.
+Run the evaluation harness. (`wikihistory eval` also works.)
 
 ```bash
-wikihistory eval [options]
+refract eval [options]
 ```
 
 | Flag | Default | Description |
@@ -81,12 +81,12 @@ wikihistory eval [options]
 | `--page <title>` | — | Run only for a specific page |
 | `--ground-truth <path\|builtin>` | — | Validate against ground truth labels |
 
-## `wikihistory export`
+## `refract export`
 
-Export analysis as structured data.
+Export analysis as structured data. (`wikihistory export` also works.)
 
 ```bash
-wikihistory export <page> [options]
+refract export <page> [options]
 ```
 
 | Flag | Default | Description |
@@ -97,12 +97,12 @@ wikihistory export <page> [options]
 | `--manifest` | off | Export as replay manifest with all hashes. See [manifest format](bundle-manifest.md). |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory explore`
+## `refract explore`
 
-Start a local web explorer with timeline, evidence table, and diff viewer.
+Start a local web explorer with timeline, evidence table, and diff viewer. (`wikihistory explore` also works.)
 
 ```bash
-wikihistory explore <page> [options]
+refract explore <page> [options]
 ```
 
 | Flag | Default | Description |
@@ -112,12 +112,12 @@ wikihistory explore <page> [options]
 | `--no-open` | off | Don't open browser automatically |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory visualize`
+## `refract visualize`
 
-Export evidence graph as a diagram.
+Export evidence graph as a diagram. (`wikihistory visualize` also works.)
 
 ```bash
-wikihistory visualize <page> [options]
+refract visualize <page> [options]
 ```
 
 | Flag | Default | Description |
@@ -127,12 +127,12 @@ wikihistory visualize <page> [options]
 | `--all` | off | Show all event types (default: claim events only) |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory watch`
+## `refract watch`
 
-Live polling daemon for new edits.
+Live polling daemon for new edits. (`wikihistory watch` also works.)
 
 ```bash
-wikihistory watch <page> [options]
+refract watch <page> [options]
 ```
 
 | Flag | Default | Description |
@@ -142,12 +142,12 @@ wikihistory watch <page> [options]
 | `-i, --interval <ms>` | `60000` | Poll interval in milliseconds |
 | `--api <url>` | `en.wikipedia.org` | MediaWiki API base URL |
 
-## `wikihistory mcp`
+## `refract mcp`
 
-Start MCP server for AI agent integration.
+Start MCP server for AI agent integration. (`wikihistory mcp` also works.)
 
 ```bash
-wikihistory mcp
+refract mcp
 ```
 
 ## Global options
@@ -157,7 +157,7 @@ These options apply to most commands:
 | Flag | Description |
 |---|---|
 | `--api <url>` | MediaWiki API base URL (default: `en.wikipedia.org`) |
-| `--cache-dir <path>` | Cache directory path (default: `~/.wikihistory`) |
+| `--cache-dir <path>` | Cache directory path (default: `~/.refract`) |
 | `--api-key <token>` | API key for bearer token auth |
 | `--api-user <user>` | Username for basic auth |
 | `--api-password <pass>` | Password for basic auth |

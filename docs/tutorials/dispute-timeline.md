@@ -9,7 +9,7 @@ Combine article revision history with talk page activity to build a timeline of 
 ### 1. Analyze the article
 
 ```bash
-wikihistory analyze "Global_warming" --depth detailed -c
+refract analyze "Global_warming" --depth detailed -c
 ```
 
 ### 2. Analyze the talk page
@@ -17,19 +17,19 @@ wikihistory analyze "Global_warming" --depth detailed -c
 Talk pages are fetched by prefixing the page title with `Talk:`:
 
 ```bash
-wikihistory analyze "Talk:Global_warming" --depth detailed -c
+refract analyze "Talk:Global_warming" --depth detailed -c
 ```
 
 ### 3. Visualize the combined timeline
 
 ```bash
-wikihistory visualize "Global_warming" --format mermaid --all
+refract visualize "Global_warming" --format mermaid --all
 ```
 
 ### 4. Export for further analysis
 
 ```bash
-wikihistory export "Global_warming" --format ndjson > global-warming-events.ndjson
+refract export "Global_warming" --format ndjson > global-warming-events.ndjson
 ```
 
 Correlate revert timestamps with talk page revision timestamps to identify dispute intensity.

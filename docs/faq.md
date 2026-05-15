@@ -10,7 +10,7 @@ Wikipedia pages with thousands of revisions may exceed the default fetch limit. 
 
 ```bash
 # Start with the last 50 revisions
-wikihistory analyze "Earth" --from <recent-rev-id>
+refract analyze "Earth" --from <recent-rev-id>
 ```
 
 ## Authentication errors
@@ -26,7 +26,7 @@ wikihistory analyze "Earth" --from <recent-rev-id>
 For private or authenticated MediaWiki instances, provide credentials:
 
 ```bash
-wikihistory analyze "Page" \
+refract analyze "Page" \
   --api https://internal.wiki/api.php \
   --api-key <token>
 ```
@@ -38,20 +38,20 @@ Supported auth methods: bearer token (`--api-key`), basic auth (`--api-user` + `
 If results seem stale, clear the cache:
 
 ```bash
-rm -rf ~/.wikihistory/refract.db
+rm -rf ~/.refract/cache.db
 ```
 
 Or use `--cache-dir` to point at a fresh location.
 
 ## No events produced
 
-If `wikihistory analyze` returns no events, the page may not have changed in the requested revision range. Try expanding the range or removing `--from`/`--to` to fetch the most recent revisions.
+If `refract analyze` returns no events, the page may not have changed in the requested revision range. Try expanding the range or removing `--from`/`--to` to fetch the most recent revisions.
 
 ## Cross-wiki diff returns no results
 
-`wikihistory diff` compares a topic across two MediaWiki instances. Each wiki must have a page with the given title. Verify:
+`refract diff` compares a topic across two MediaWiki instances. Each wiki must have a page with the given title. Verify:
 
 ```bash
-wikihistory analyze "Topic" --api <wiki-a-url>
-wikihistory analyze "Topic" --api <wiki-b-url>
+refract analyze "Topic" --api <wiki-a-url>
+refract analyze "Topic" --api <wiki-b-url>
 ```

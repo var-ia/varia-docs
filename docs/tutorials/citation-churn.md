@@ -9,13 +9,13 @@ Track citation additions and removals on a high-traffic medical Wikipedia page t
 ### 1. Analyze a medical page
 
 ```bash
-wikihistory analyze "COVID-19" --depth detailed -c
+refract analyze "COVID-19" --depth detailed -c
 ```
 
 ### 2. Export citation data as CSV
 
 ```bash
-wikihistory export "COVID-19" --format csv
+refract export "COVID-19" --format csv
 ```
 
 This produces a CSV with citation URLs, add/remove timestamps, and revision IDs — ready for spreadsheet analysis.
@@ -23,7 +23,7 @@ This produces a CSV with citation URLs, add/remove timestamps, and revision IDs 
 ### 3. Pipe to file
 
 ```bash
-wikihistory export "COVID-19" --format csv > churn-report.csv
+refract export "COVID-19" --format csv > churn-report.csv
 ```
 
 ## Use case: identifying biased sourcing
@@ -82,6 +82,6 @@ Citation churn patterns reveal source instability. A citation added in one edit 
 
 ## Notes
 
-- Use `--format csv` or `--format ndjson` on `wikihistory export` for spreadsheet-importable churn reports.
+- Use `--format csv` or `--format ndjson` on `refract export` for spreadsheet-importable churn reports.
 - Group by source domain to see which types of sources churn most.
 - Refract tracks the citation change, not source quality — that's outside the boundary.

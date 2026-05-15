@@ -29,10 +29,10 @@ bun add -g @refract-org/cli
 npm install -g @refract-org/cli
 ```
 
-Then use the `wikihistory` command directly:
+Then use the `refract` command directly (or `wikihistory` as an alias):
 
 ```bash
-wikihistory analyze "Earth" --depth brief
+refract analyze "Earth" --depth brief
 ```
 
 ## Docker
@@ -64,5 +64,5 @@ bun run build
 ## Verify installation
 
 ```bash
-wikihistory --version
+refract --version
 ```

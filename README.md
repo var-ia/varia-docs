@@ -1,8 +1,8 @@
 # Refract Docs
 
-Public documentation for [Refract](https://github.com/refract-org/refract) — the git log for public knowledge.
+Public documentation for [Refract](https://github.com/refract-org/refract) — the open claim-history layer for public knowledge.
 
-**Refract answers: "What changed?"**
+**Refract reveals how claims change across public revision histories.**
 
 ---
 

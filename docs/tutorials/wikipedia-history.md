@@ -18,7 +18,7 @@ Or with a local install:
 
 ```bash
 bun add @refract-org/cli
-wikihistory analyze "Earth" --depth detailed -c
+refract analyze "Earth" --depth detailed -c
 ```
 
 ### 2. View results
@@ -26,7 +26,7 @@ wikihistory analyze "Earth" --depth detailed -c
 Events print to stdout. For structured export or an HTML report:
 
 ```bash
-wikihistory export "Earth" --format html > earth-report.html
+refract export "Earth" --format html > earth-report.html
 ```
 
 ### 3. Understand the events
@@ -38,13 +38,13 @@ wikihistory export "Earth" --format html > earth-report.html
 ### 4. Visualize
 
 ```bash
-wikihistory visualize "Earth" --format mermaid
+refract visualize "Earth" --format mermaid
 ```
 
 To see all event types (not just claim events):
 
 ```bash
-wikihistory visualize "Earth" --format mermaid --all
+refract visualize "Earth" --format mermaid --all
 ```
 
 ## Next steps
@@ -55,7 +55,7 @@ wikihistory visualize "Earth" --format mermaid --all
 
 ## Example output
 
-`wikihistory analyze` produces a stream of events. Here are two example events from the Earth page:
+`refract analyze` produces a stream of events. Here are two example events from the Earth page:
 
 ```json
 {
@@ -110,4 +110,4 @@ wikihistory visualize "Earth" --format mermaid --all
 - **Rate limits**: Use `-c` to cache revisions and avoid re-fetching.
 - **Large pages**: Analyze a range with `--from` and `--to` revision IDs.
 - **Other wikis**: Use `--api` to point to a different MediaWiki API (e.g., `--api https://de.wikipedia.org/w/api.php`).
-- **Output too large**: Use `wikihistory export "Earth" --format ndjson` for line-delimited output.
+- **Output too large**: Use `refract export "Earth" --format ndjson` for line-delimited output.

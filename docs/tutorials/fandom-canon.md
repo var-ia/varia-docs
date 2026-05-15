@@ -11,31 +11,31 @@ Monitor how a Fandom wiki's canon pages change over time, tracking additions and
 Fandom wikis use the same MediaWiki API. Point `--api` at the wiki's API endpoint:
 
 ```bash
-wikihistory analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed
+refract analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed
 ```
 
 ### 2. Run analyzers with caching
 
 ```bash
-wikihistory analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed -c
+refract analyze "Darth_Vader" --api https://starwars.fandom.com/api.php --depth detailed -c
 ```
 
 ### 3. Export results
 
 ```bash
-wikihistory export "Darth_Vader" --api https://starwars.fandom.com/api.php --format json
+refract export "Darth_Vader" --api https://starwars.fandom.com/api.php --format json
 ```
 
 ### 4. Track a specific claim
 
 ```bash
-wikihistory claim "Darth_Vader" --text "midichlorian count is over 20,000" --api https://starwars.fandom.com/api.php -c
+refract claim "Darth_Vader" --text "midichlorian count is over 20,000" --api https://starwars.fandom.com/api.php -c
 ```
 
 ### 5. Watch for new edits
 
 ```bash
-wikihistory watch "Darth_Vader" --api https://starwars.fandom.com/api.php --interval 60000
+refract watch "Darth_Vader" --api https://starwars.fandom.com/api.php --interval 60000
 ```
 
 ## Use case: preserving canonicity
@@ -72,4 +72,4 @@ Fandom canon pages drift as new media releases or retcons earlier material. Char
 
 - Fandom wikis use the standard MediaWiki API — pass the API URL with `--api`.
 - Fandom wiki APIs may have different rate limits; use `-c` to cache revisions.
-- For multi-page monitoring, use a pages file with `wikihistory cron`.
+- For multi-page monitoring, use a pages file with `refract cron`.

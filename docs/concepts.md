@@ -1,6 +1,11 @@
 # Concepts
 
-Refract is a deterministic observation engine. It extracts structured evidence from revision histories without calling any model. Every run against the same revision range produces identical output — byte-for-byte reproducible.
+Refract is the open claim-history layer for public knowledge. It ingests revision histories
+from MediaWiki instances and produces a deterministic event stream showing how claims
+enter, change, stabilize, and exit the public record — where they came from, what supported
+them, what challenged them, and when context altered their meaning.
+
+Every run against the same revision range produces identical output: byte-for-byte reproducible.
 
 ## How determinism works
 
@@ -65,33 +70,6 @@ Downstream model interpretation is a separate concern — it consumes Refract's 
 - No truth claims — Refract reports what changed, not whether the change is accurate
 - No prediction, sentiment analysis, or editor scoring
 - No claims about compliance, policy violations, or decision relevance
-
-## Bring your own inference
-
-Refract provides the format pipeline; you provide the model.
-
-The deterministic engine never calls an LLM, never stores API keys, and never
-depends on any inference runtime. But the event schema includes a
-`modelInterpretation` field on every `EvidenceEvent` — reserved for downstream
-systems to attach semantic analysis without modifying the deterministic record.
-
-Three utilities in `@refract-org/evidence-graph` make this boundary clean:
-
-- **`buildInterpretationPrompt(events, pageTitle)`** — formats a batch of events
-  into a structured prompt for any LLM: "classify each event by semantic change,
-  confidence, policy dimension, and discussion type"
-
-- **`ModelInterpretationSchema`** — a JSON Schema that any provider supporting
-  `response_format: json_schema` (OpenAI, Anthropic, DeepSeek) can use to produce
-  valid structured output
-
-- **`parseInterpretationResponse(text)`** — extracts typed `ModelInterpretation[]`
-  from raw LLM output with JSON extraction fallback
-
-The MCP server (`wikihistory mcp`) extends this pattern through **MCP sampling**:
-it requests the host's LLM to interpret events without managing API keys.
-Reference pipelines are in [varia-labs](https://github.com/refract-org/refract-labs) for
-DeepSeek, OpenAI, Ollama, and other OpenAI-compatible providers.
 
 ## Independent ground truth
 

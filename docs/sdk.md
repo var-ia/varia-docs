@@ -4,7 +4,7 @@
 
 Refract's SDK is a set of packages that compose into a pipeline: ingest → analyze → persist.
 
-Packages are published on npm under the `@var-ia` scope. All packages are ESM-only and written in TypeScript.
+Packages are published on npm under the `@refract-org` scope. All packages are ESM-only and written in TypeScript.
 
 ## Basic pipeline
 
@@ -107,7 +107,7 @@ Key exports:
 
 ### `@refract-org/cli`
 
-The `wikihistory` CLI tool (10 commands: analyze, claim, cron, diff, eval, explore, export, mcp, visualize, watch). See [CLI reference](./cli).
+The `refract` / `wikihistory` CLI tool (10 commands: analyze, claim, cron, diff, eval, explore, export, mcp, visualize, watch). See [CLI reference](./cli).
 
 ### `@refract-org/persistence`
 

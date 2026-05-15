@@ -13,7 +13,7 @@ CLI flags containing credentials (`--api-key`, `--api-password`) are visible in 
 
 ## Local storage
 
-When using `--cache`, revision content is persisted to `~/.wikihistory/refract.db` (SQLite). This file contains full wikitext from every revision fetched. On shared machines, configure `--cache-dir` to an encrypted volume.
+When using `--cache`, revision content is persisted to `~/.refract/cache.db` (SQLite). This file contains full wikitext from every revision fetched. On shared machines, configure `--cache-dir` to an encrypted volume.
 
 The cache directory can also be set via `VARIA_CACHE_DIR` environment variable.
 
@@ -25,10 +25,10 @@ Bundled evidence files (`--bundle`) are signed but not encrypted — they contai
 
 ## Data retention
 
-Cached revision data persists indefinitely in `~/.wikihistory/refract.db`. Clear it manually:
+Cached revision data persists indefinitely in `~/.refract/cache.db`. Clear it manually:
 
 ```bash
-rm -rf ~/.wikihistory/refract.db
+rm -rf ~/.refract/cache.db
 ```
 
 There is no automatic data retention policy. The cache only contains data you explicitly fetched.

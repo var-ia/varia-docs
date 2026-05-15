@@ -1,11 +1,15 @@
-# Refract: the git log for public knowledge
+# Refract: the open claim-history layer for public knowledge
 
-**Refract answers: "What changed?"**
+**Refract reveals how claims change across public revision histories.**
 
-The printing press made knowledge durable by freezing it. Wikipedia made it mutable.
-But systems still consume only the current surface. Refract makes the mutation legible
-— a provenance-tagged event stream of every claim, source, section, and dispute
-across an entire revision history, without calling a model, without deciding what is true.
+The printing press froze knowledge in editions. Wikipedia made it mutable. Refract
+makes the mutation legible — a deterministic event stream showing where every claim
+came from, what changed, what supported it, what challenged it, when it stabilized,
+and what context altered its meaning.
+
+Machines do not just need more retrieved text. They need provenance, instability,
+disagreement, and temporal change. Refract is the open layer that makes knowledge
+legible to machines: `refract observe`, `refract timeline`, `refract diff`, `refract analyze`.
 
 ## Why Refract?
 
@@ -35,4 +39,4 @@ across an entire revision history, without calling a model, without deciding wha
 
 ## Open source
 
-Refract is open source under AGPL-3.0.
+Refract is open source under AGPL-3.0. Built and maintained by [NextConsensus](https://nextconsensus.com).

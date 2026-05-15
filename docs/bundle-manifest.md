@@ -5,7 +5,7 @@
 A signed evidence bundle contains all events for a page observation along with a SHA-256 hash of the complete payload. The hash lets downstream consumers verify that the data hasn't been modified since export.
 
 ```bash
-wikihistory export "Earth" --bundle > earth-bundle.json
+refract export "Earth" --bundle > earth-bundle.json
 ```
 
 The bundle wraps the event array in a signed envelope:
@@ -26,7 +26,7 @@ Use bundles when you need an audit trail — submitting evidence to a third part
 A replay manifest is a Merkle tree of event hashes that lets you verify the exact set of events without sending the full payload. Each event's hash is a leaf in the tree; the root hash represents the complete observation.
 
 ```bash
-wikihistory export "Earth" --manifest > earth-manifest.json
+refract export "Earth" --manifest > earth-manifest.json
 ```
 
 ```json
