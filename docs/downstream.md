@@ -85,3 +85,18 @@ const result = computeBaselineSuperiority({
 ## Principle
 
 Refract's event stream is purely mechanical. All interpretation happens downstream. Refract provides the deterministic record; the consumer provides the judgment.
+
+## What downstream systems build
+
+| Consumer | Builds on Refract |
+|----------|-------------------|
+| **Healthcare decision intelligence** | Feed structured events into a measurement pipeline that scores claims by clinical truth, ratification, economic stake, and feasibility. Each event carries the exact analyzer thresholds used. |
+| **AI training data curation** | Score each claim by revert count, citation churn, talk page correlation, and template dispute history. Include only stable, well-sourced claims in training data. |
+| **Provenance-aware RAG** | Enrich each retrieved chunk with its claim history — stable, recently changed, source-fragile, contested. Use the signal to weight or filter results. |
+| **Regulatory monitoring** | Run `refract cron` on drug pages, guidelines, and regulatory topics. Alert on citation removal, template disputes, or section reorganization. |
+| **Competitive intelligence** | Use `refract diff` to compare how the same topic is framed across wikis (English vs German Wikipedia, Fandom vs independent wiki). Track divergence over time. |
+| **Fact-checking** | Given a claim, query its lifecycle — first appearance, source additions, revert history, talk page activity. Return a verifiable provenance timeline. |
+| **Academic research** | Export `ObservationReport` with Merkle-verifiable claim histories. Analyze claim stability across topics, time periods, and editorial environments. |
+| **Journalism forensics** | Track how a specific claim about a person evolved. Detect coordinated editing, source softening, or removal without replacement. |
+| **Fan wiki canon tracking** | Compare the same fictional universe across competing wikis. Detect retcon divergence and measure by how much. |
+| **Knowledge graph engineering** | Use `--depth forensic` to capture category and wikilink change events. Build an entity graph that evolves with the public record. |
