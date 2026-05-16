@@ -106,3 +106,36 @@ Downstream model interpretation is a separate concern — it consumes Refract's 
 ## Independent ground truth
 
 The eval package stores outcome labels independently from pipeline output. These labels are collected from talk page discussions, RFC closures, and arbitration decisions — human consensus about what happened. The evaluation harness compares pipeline events against these labels to measure analyzer accuracy without feedback loops.
+
+## References
+
+Refract builds on research in peer production, computational social science, and knowledge evolution. The following work informs its architecture and assumptions:
+
+### Wikipedia and peer production
+
+- **Viégas, Wattenberg, & McKeon (2007)** — *The Hidden Order of Wikipedia*. Visualizing the edit history of Wikipedia articles reveals patterns of cooperation and conflict.
+- **Halfaker, Geiger, Morgan, & Riedl (2013)** — *The Rise and Decline of an Open Collaboration System: How Wikipedia's reaction to popularity is causing its decline*. American Behavioral Scientist. Documents the systemic pressures that shape Wikipedia's editorial dynamics.
+- **Kittur & Kraut (2008)** — *Harnessing the Wisdom of Crowds in Wikipedia: Quality through Coordination*. Proceedings of CSCW. Shows that coordination structures, not just contributor count, determine article quality.
+- **Keegan, Gergle, & Contractor (2013)** — *Hot Off the Wiki: Structures and Dynamics of Wikipedia's Coverage of Breaking News Events*. American Behavioral Scientist. Analyzes how Wikipedia responds to real-world events — the pattern Refract's edit cluster detector captures.
+- **Müller-Birn, Dobusch, & Herbsleb (2013)** — *Work-to-rule: The emergence of algorithmic regulation in Wikipedia*. Proceedings of OpenSym. How policy templates and automated tools enforce editorial norms.
+
+### Content dynamics and claim evolution
+
+- **Adler, de Alfaro, Pye, & Raman (2008)** — *Measuring Author Contributions to the Wikipedia*. WikiWho system for sentence-level authorship attribution. Refract differs by tracking sentence *lifecycle* rather than who wrote it.
+- **Jurgens & Lu (2012)** — *Temporal Analysis of Wikipedia Article Evolution*. CMU technical report. Quantitative analysis of how Wikipedia articles change over time.
+- **Youyou, Lazer, & Wu (2020)** — *Dynamics of Knowledge: Wikipedia's Evolving Epistemic Landscape*. PNAS. Studies how knowledge claims stabilize, shift, or disappear across revision history.
+- **Ferschke, Gurevych, & Rittberger (2012)** — *The Impact of Topic Bias on Quality Flaw Detection in Wikipedia*. Proceedings of *Web of Linked Entities*. Analyzes how template placement correlates with content quality.
+
+### Provenance and evidence infrastructure
+
+- **Buneman, Khanna, & Tan (2001)** — *Why and Where: A Characterization of Data Provenance*. ICDT. Foundational work on data provenance that motivates Refract's `FactProvenance` and `inputHashes` design.
+- **Carroll, Bizer, Hayes, & Stickler (2005)** — *Named Graphs, Provenance and Trust*. WWW. Semantic web provenance patterns that influenced Refract's `EvidenceLayer` taxonomy (`observed`, `policy_coded`, `model_interpretation`).
+- **Merkle (1980)** — *Protocols for Public Key Cryptosystems*. IEEE S&P. Merkle tree construction used in Refract's replay manifests for observation integrity verification.
+- **Moreau et al. (2011)** — *The Open Provenance Model core specification (v1.1)*. Future Generation Computer Systems. Provenance modeling patterns that informed `FactProvenance` design (analyzer, version, inputHashes).
+
+### Decision intelligence (relevant to downstream consumers)
+
+- **Kahneman & Tversky (1979)** — *Prospect Theory: An Analysis of Decision under Risk*. Econometrica. Foundational work on how humans make judgments under uncertainty — the cognitive context Refract's deterministic event stream is designed to anchor.
+- **Tetlock & Gardner (2015)** — *Superforecasting: The Art and Science of Prediction*. Calibration and debiasing techniques that downstream consumers can apply to model interpretation built on top of Refract's event stream.
+- **Sackett et al. (1996)** — *Evidence Based Medicine: What it is and what it isn't*. BMJ. Defines the evidence hierarchy that healthcare downstream consumers (e.g., NextConsensus) use to weight source types.
+- **Guyatt et al. (2008)** — *GRADE: an emerging consensus on rating quality of evidence and strength of recommendations*. BMJ. The GRADE framework for evidence quality assessment — a model for how downstream consumers might score source reliability.
