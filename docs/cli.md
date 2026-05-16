@@ -89,6 +89,31 @@ refract eval [options]
 | `--page <title>` | — | Run only for a specific page |
 | `--ground-truth <path\|builtin>` | — | Validate against ground truth labels |
 
+## `refract classify`
+
+Classify a single observation boundary using an inference provider. (`wikihistory classify` also works.)
+
+```bash
+refract classify <boundary> --input '<json>'
+```
+
+| Boundary | What it decides | Default | Model question |
+|----------|----------------|---------|----------------|
+| `revert` | Is this edit comment a revert? | 6 regex patterns | "Does this comment indicate a revert?" |
+| `sentence_similarity` | Are these two sentences the same claim? | Word-overlap ratio (0.8) | "Are these the same claim?" |
+| `heuristic` | What kind of edit is this? | Size thresholds + comment patterns | "Classify this edit by type" |
+| `template_signal` | What policy signal does this template represent? | Name-to-type lookup | "What signal does this template represent?" |
+| `activity_spike` | Is this day's talk activity meaningful? | 3x moving average | "Is this a meaningful spike?" |
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--input <json>` | — | Input data as JSON string |
+| `--api-key <key>` | env `REFRACT_INFERENCE_API_KEY` | API key for inference provider |
+| `--endpoint <url>` | env `REFRACT_INFERENCE_ENDPOINT` | OpenAI-compatible endpoint |
+| `--model <name>` | `gpt-4o-mini` | Model name |
+
+Each boundary's default is the mechanical heuristic. Pass an API key or set `REFRACT_INFERENCE_API_KEY` to call a model instead. The output includes `source: "model"` or `"default"` for auditability.
+
 ## `refract export`
 
 Export analysis as structured data. (`wikihistory export` also works.)
