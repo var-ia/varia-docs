@@ -76,7 +76,7 @@ export interface EvidenceEvent {
 export type EvidenceLayer =
   | "observed"              // directly observed from the diff
   | "policy_coded"          // coded against a policy rule
-  | "model_interpretation"  // set by downstream consumers (e.g., NextConsensus)
+  | "model_interpretation"  // set by downstream consumers
   | "speculative"           // inferred but without a hard rule
   | "unknown";              // layer not yet classified
 
@@ -120,7 +120,7 @@ export type PolicyDimension =
   | "civility";
 ```
 
-`ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Refract's deterministic pipeline — they exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the deterministic event.
+`ModelInterpretation` and `modelInterpretation` on `EvidenceEvent` are never set by Refract's deterministic pipeline — they exist for downstream consumers to attach semantic analysis without modifying the deterministic event.
 
 `AnalyzerConfig` is a supporting type exported from `@refract-org/evidence-graph` that defines configurable parameters for analyzers (similarity thresholds, time windows, revert patterns). See the [CLI reference](./cli) for the per-flag equivalents.
 

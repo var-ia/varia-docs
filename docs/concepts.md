@@ -51,7 +51,7 @@ The pipeline produces timed `EvidenceEvent` objects with 26 event types, all mec
 - **Protection events**: `protection_changed`
 - **Talk page events**: `talk_page_correlated`, `talk_thread_opened`, `talk_thread_archived`, `talk_reply_added`
 
-The event schema includes a `modelInterpretation` field and `model_interpretation` evidence layer — these are never set by Refract's deterministic engine. They exist for downstream consumers (e.g., NextConsensus) to attach semantic analysis without modifying the event stream.
+The event schema includes a `modelInterpretation` field and `model_interpretation` evidence layer — these are never set by Refract's deterministic engine. They exist for downstream consumers to attach semantic analysis without modifying the event stream.
 
 Analyzers accept configurable parameters (similarity thresholds, time windows, revert patterns) via `AnalyzerConfig`, passed from the CLI or SDK. This allows users to tune detection sensitivity without modifying analyzer code.
 
