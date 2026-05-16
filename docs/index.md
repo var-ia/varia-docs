@@ -62,25 +62,26 @@ refract analyze "Earth" --report > earth-report.json
 
 ## Contents
 
-- [Install](install.md)
-- [Concepts](concepts.md)
-- [CLI command reference](cli.md)
-- [SDK / package reference](sdk.md)
-- [Event schema reference](schema.md)
-- [Event taxonomy](events.md)
-- [Analysis depth levels](depth.md)
-- [Export formats: bundles and manifests](bundle-manifest.md)
-- [Analytics with DuckDB](analytics.md)
-- [Notebook analysis](notebooks.md)
-- [Downstream integration](downstream.md)
-- [MCP: AI agent integration](mcp.md)
-- [Tutorials](tutorials/wikipedia-history.md)
-- [Glossary](glossary.md)
-- [Troubleshooting / FAQ](faq.md)
-- [Security](security.md)
-- [Naming conventions](naming.md)
-- [Boundary](boundary.md)
-- [Frontier use cases](frontier-use-cases.md)
+### Getting Started
+- [Install](install.md) — [Concepts](concepts.md)
+
+### Reference
+- [CLI command reference](cli.md) — [SDK / package reference](sdk.md)
+- [Event schema](schema.md) — [Event taxonomy](events.md)
+- [Analysis depth levels](depth.md) — [Export formats](bundle-manifest.md)
+
+### Integration
+- [Downstream integration](downstream.md) — [MCP: AI agent integration](mcp.md)
+- [Analytics with DuckDB](analytics.md) — [Notebook analysis](notebooks.md)
+
+### Tutorials
+- [Wikipedia history](tutorials/wikipedia-history.md) — [Fandom canon](tutorials/fandom-canon.md)
+- [Citation churn](tutorials/citation-churn.md) — [Dispute timeline](tutorials/dispute-timeline.md)
+
+### Appendix
+- [Glossary](glossary.md) — [Troubleshooting / FAQ](faq.md)
+- [Security](security.md) — [Naming conventions](naming.md)
+- [Boundary](boundary.md) — [Frontier use cases](frontier-use-cases.md)
 
 ## License
 
