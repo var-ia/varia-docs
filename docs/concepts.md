@@ -13,6 +13,12 @@ Refract never calls an LLM, never samples randomly, and never depends on externa
 
 Deterministic identity (`eventId`) extends this guarantee: events with identical content produce identical hashes, so deduplication and cross-reference are reliable even when the same observation is run independently.
 
+## Architecture
+
+![Concept overview](concept-overview.svg)
+
+The diagram shows how Refract ingests revision histories from MediaWiki APIs, runs deterministic analyzers, and produces a structured event stream with provenance tags.
+
 ## Pipeline stages
 
 ```
@@ -25,6 +31,8 @@ Wikipedia API → Fetch → Analyze → Report → (optional) Validate
 | **Analyze** | Runs deterministic analyzers — section diffs, citation tracking, revert detection, template classification, category/wikilink extraction | Yes — pure functions, no external state |
 | **Report** | Assembles structured events with revision, section, and timestamp provenance | Yes — deterministic ID via SHA-256 content hash |
 | **Validate** | Optional: compares pipeline output against ground truth labels (eval package) | Yes — deterministic comparison |
+
+![Architecture data flow](architecture-flow.svg)
 
 ## Depth levels
 
@@ -58,6 +66,8 @@ Analyzers accept configurable parameters (similarity thresholds, time windows, r
 The pipeline can also produce an `ObservationReport` — a structured aggregate that groups events by claim with a `ClaimLedger` tracking each claim's lifecycle across revisions.
 
 See [schema.md](schema.md) for the full reference.
+
+![Evidence labels diagram](evidence-labels.svg)
 
 ## Configurable heuristics / BYO-inference boundaries
 
