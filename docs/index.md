@@ -6,6 +6,11 @@
 npx @refract-org/cli analyze "Earth" --depth brief
 ```
 
+<div class="hero-links">
+  <a href="demo/" class="button primary">&#9654; Live Demo</a>
+  <a href="quickstart/" class="button secondary">Quick Start</a>
+</div>
+
 Node.js 20+ or Bun 1.2+ · Git 2.x · Any MediaWiki instance
 
 The printing press froze knowledge in editions. Wikipedia made it mutable. Refract makes the mutation legible — a deterministic event stream showing where every claim came from, what changed, what supported it, what challenged it, when it stabilized, and what context altered its meaning.

@@ -11,6 +11,7 @@ const BASE = process.env.BASE || '/refract-docs/';
 
 const NAV = [
   { title: 'Home',             slug: 'index' },
+  { title: 'Live Demo',         slug: 'demo' },
   { title: 'Quick Start',      slug: 'quickstart' },
   { title: 'Install',          slug: 'install' },
   { title: 'Concepts',         slug: 'concepts' },
