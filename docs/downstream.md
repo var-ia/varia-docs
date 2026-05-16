@@ -100,3 +100,20 @@ Refract's event stream is purely mechanical. All interpretation happens downstre
 | **Journalism forensics** | Track how a specific claim about a person evolved. Detect coordinated editing, source softening, or removal without replacement. |
 | **Fan wiki canon tracking** | Compare the same fictional universe across competing wikis. Detect retcon divergence and measure by how much. |
 | **Knowledge graph engineering** | Use `--depth forensic` to capture category and wikilink change events. Build an entity graph that evolves with the public record. |
+
+## Complementary technologies
+
+Refract pairs naturally with these modern tools. The event stream is standard JSON/NDJSON — anything that reads JSON or speaks HTTP can consume it.
+
+| Category | Technology | How they fit |
+|----------|-----------|-------------|
+| **Vector databases** | Pinecone, Weaviate, pgvector, Chroma | Store claim embeddings alongside stability metadata. Query: "find claims similar to X that are stable and well-sourced." |
+| **RAG frameworks** | LangChain, LlamaIndex, Vercel AI SDK | Use Refract's stability/contestation signals as retrieval filters or reranking features. LangChain document transformers can attach claim provenance to each chunk. |
+| **Data lakes & query** | DuckDB, Apache Parquet, ClickHouse | Query `refract export --format ndjson` output with SQL. DuckDB can query JSONL files directly: `SELECT event_type, count(*) FROM 'events.jsonl' GROUP BY event_type;` |
+| **Streaming** | Apache Kafka, Redpanda, Cloudflare Queues | Feed event streams into real-time claim monitoring pipelines. Each `EvidenceEvent` is a Kafka message with key by claimId for stateful processing. |
+| **Visualization** | Observable Framework, Mermaid, D3 | `refract visualize --format mermaid` already produces Mermaid diagrams. Observable Framework has a dedicated `@refract-org/observable` data loader. D3 can read event JSONL directly. |
+| **Knowledge graphs** | RDF, SPARQL, Neo4j | Convert `wikilink_added`/`category_added` events into triple statements. Build an evolving entity graph where each edge has a revision timestamp. |
+| **Version control** | Git, DVC, LakeFS | The `ObservationReport` and JSONL event files are plain text — commit them to track how claims evolve over observation runs. DVC can manage large event corpora with data versioning. |
+| **Model serving** | OpenAI API, DeepSeek API, Ollama, vLLM | Plug any OpenAI-compatible endpoint into `refract classify` at each BYO-inference boundary (revert detection, sentence similarity, edit classification, template signal, activity spike). |
+| **Notebooks** | Jupyter, Observable notebooks, Marimo | Load event JSONL into a DataFrame: `pd.read_json("events.jsonl", lines=True)`. Analyze claim stability, citation churn, and edit cluster patterns interactively. |
+| **Serverless** | Cloudflare Workers, D1, R2, Queues | Run `refract` via `npx` in a Worker, store structured events in D1, export to R2, queue re-observations. The entire infrastructure is edge-deployable. |
