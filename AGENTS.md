@@ -35,7 +35,7 @@ docs/
 
 - Use `Refract` (capital V) as the project name.
 - Reference packages as `@refract-org/<name>`.
-- Reference the CLI as `wikihistory`.
+- Reference the CLI as `refract` (`wikihistory` works as an alias)
 - Describe Refract as a deterministic observation engine.
 - L1/L2/L3 references are legacy — prefer "deterministic" / "ground truth".
 
