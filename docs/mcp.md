@@ -1,23 +1,57 @@
-# MCP — model context protocol
+# MCP — Model Context Protocol
 
 `refract mcp` starts a JSON-RPC server over stdio that exposes the Refract engine to AI agents via the Model Context Protocol. (`wikihistory mcp` also works.)
 
-The MCP server supports **sampling** — it can request the host's LLM to interpret events without managing API keys or model SDKs internally.
+The MCP server supports **sampling** — it can request the host's LLM to interpret events at any BYO-inference boundary without managing API keys.
 
-## Usage
+## Quick start
 
 ```bash
 refract mcp
 ```
 
-## Connecting an AI agent
+The server starts and waits for MCP client connections on stdio. Connect any MCP-compatible client.
+
+## Connecting AI coding agents
+
+### Claude Code
+
+```json
+{
+  "mcpServers": {
+    "refract": {
+      "command": "npx",
+      "args": ["@refract-org/cli", "mcp"]
+    }
+  }
+}
+```
+
+Then prompt Claude Code:
+
+> "Analyze the Wikipedia page for Bitcoin and tell me when the most controversial edits happened."
+
+Claude Code calls Refract's MCP tools to fetch the analysis, reads the structured events, and summarizes the findings.
+
+### VS Code / Cursor / GitHub Copilot
+
+```json
+{
+  "mcpServers": {
+    "refract": {
+      "command": "npx",
+      "args": ["@refract-org/cli", "mcp"]
+    }
+  }
+}
+```
 
 ### Claude Desktop
 
 ```json
 {
   "mcpServers": {
-    "varia": {
+    "refract": {
       "command": "npx",
       "args": ["refract", "mcp"]
     }
@@ -25,11 +59,35 @@ refract mcp
 }
 ```
 
+## Tutorial: Ask an AI agent about claim history
+
+1. **Start the MCP server** in one terminal:
+   ```bash
+   refract mcp
+   ```
+
+2. **Connect your AI agent** using one of the configs above.
+
+3. **Ask the agent:**
+   > "Use Refract to analyze the Wikipedia page for ChatGPT. Show me a timeline of when citations were added and removed. Which citations have survived the longest?"
+
+   The agent calls `refract analyze` via MCP, receives structured events, and interprets the citation lifecycle.
+
+4. **Track a specific claim:**
+   > "Using Refract, check the claim 'GPT-4 was trained on 45TB of text data' on the ChatGPT Wikipedia page. When was it first added? Has it been removed or rewritten?"
+
+   The agent calls `refract claim` via MCP, gets the claim's revision history, and reports.
+
+5. **Use model-assisted classification:**
+   > "Classify the most recent edit to the ChatGPT page — is it a revert, a major addition, or a minor edit?"
+
+   The agent calls `refract classify heuristic` via MCP with the edit data.
+
 ## Available tools
 
 ### `analyze`
 
-Analyze a MediaWiki page's full edit history.
+Analyze a MediaWiki page's full edit history. Returns structured events with `schemaVersion`, `FactProvenance`, and deterministic hashes.
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
@@ -42,7 +100,7 @@ Analyze a MediaWiki page's full edit history.
 
 ### `claim`
 
-Track a specific sentence across revisions.
+Track a specific sentence across revisions. Shows first seen, modifications, removals, and reintroductions.
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
@@ -67,24 +125,18 @@ Re-observe pages for scheduled monitoring.
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `pagesFile` | string | required | File path with one page title per line |
-| `interval` | string | | Lookback window in hours |
-| `api` | string | | MediaWiki API base URL |
 
-### `interpret`
+### `classify`
 
-Analyze a page and return structured semantic interpretations for every event. Each event gets a semantic change description, confidence score, Wikipedia policy dimension (if applicable), and talk page discussion type.
-
-When the host supports MCP sampling, the server constructs a prompt from the events and requests the host's LLM to fill in the interpretations — no API key needed. If sampling is unavailable, returns the prompt text so the host can pass it to any external LLM.
+Ask a model to classify a single observation boundary. See [CLI reference](cli) for the boundary table and all options.
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
-| `page` | string | required | Page title |
-| `depth` | enum | | `brief`, `detailed`, `forensic` |
-| `api` | string | | MediaWiki API base URL |
-| `from` | string | | Start revision ID |
-| `to` | string | | End revision ID |
-| `since` | string | | Re-observe from ISO timestamp |
-| `mode` | enum | | `auto` — try host LLM, fall back to prompt; `prompt` — return prompt only; `interpret` — require host LLM |
+| `boundary` | enum | required | `revert`, `sentence_similarity`, `heuristic`, `template_signal`, `activity_spike` |
+| `input` | object | required | Input data (fields vary by boundary) |
+| `apiKey` | string | | Inference provider API key (env: `REFRACT_INFERENCE_API_KEY`) |
+| `endpoint` | string | | OpenAI-compatible endpoint (DeepSeek, Ollama, etc.) |
+| `model` | string | | Model name |
 
 ## Protocol
 
@@ -93,14 +145,17 @@ When the host supports MCP sampling, the server constructs a prompt from the eve
 - **Capabilities:** `tools`, `sampling`
 - **Initialization:** Send `tools/list` to discover tools, `tools/call` to invoke
 
-## Bring Your Own Inference
+## Validation
 
-Refract never calls a model. The MCP server's `interpret` tool uses
-host-provided sampling — the AI application's own LLM fills in the
-interpretation. This means:
+To verify your MCP setup is working:
 
-- No API key configuration needed in Refract
-- The same Refract server works with any model (Claude, GPT, local Ollama)
-- Interpretations are bounded by Refract's schema (never modify deterministic events)
-- MCP `sampling/createMessage` requests are handled asynchronously so the server
-  can continue processing while waiting for the host's LLM response
+```bash
+# Start the server
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | refract mcp | head -1
+```
+
+You should receive a JSON-RPC response listing the available tools. For interactive testing, use the MCP Inspector:
+
+```bash
+npx @modelcontextprotocol/inspector refract mcp
+```

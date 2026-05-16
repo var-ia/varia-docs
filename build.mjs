@@ -20,6 +20,8 @@ const NAV = [
   { title: 'SDK',              slug: 'sdk' },
   { title: 'Depth Levels',     slug: 'depth' },
   { title: 'Bundles & Manifests', slug: 'bundle-manifest' },
+  { title: 'Analytics with DuckDB', slug: 'analytics' },
+  { title: 'Notebooks',               slug: 'notebooks' },
   { title: 'Downstream Integration', slug: 'downstream' },
   { title: 'MCP / AI',         slug: 'mcp' },
   { title: 'Glossary',         slug: 'glossary' },
