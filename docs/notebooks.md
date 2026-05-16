@@ -1,63 +1,68 @@
-# Notebook analysis
-
-Refract events are standard NDJSON — any notebook environment can load and analyze them. [Marimo](https://marimo.io) and Jupyter both work well.
-
-## Quick start
-
-```bash
-# Export events
-refract export "Bitcoin" --format ndjson > bitcoin-events.jsonl
-```
-
-## Marimo
+///
+/// # Refract Analysis — {{PAGE_TITLE}}
+///
+/// This notebook loads events from `{{PAGE_TITLE}}` and visualizes the
+/// claim lifecycle, citation churn, and event distribution.
+///
+/// ## Setup
+///
+/// ```bash
+/// pip install refract-py pandas altair
+/// refract export "{{PAGE_TITLE}}" --format ndjson --flatten > events.csv
+/// ```
+///
+/// ## Load events
 
 ```python
-import marimo as mo
 import pandas as pd
 import json
 
-# Load events
 events = []
-with open("bitcoin-events.jsonl") as f:
+with open("events.csv") as f:
     for line in f:
         if line.strip() and not line.startswith("#"):
             events.append(json.loads(line))
 
 df = pd.json_normalize(events)
+df["timestamp"] = pd.to_datetime(df["timestamp"])
+len(df)
 ```
 
-### Event type breakdown
+/// ## Event type distribution
 
 ```python
-df['event_type'].value_counts().plot(kind='bar')
+import altair as alt
+
+dist = df["eventType"].value_counts().reset_index()
+dist.columns = ["event_type", "count"]
+alt.Chart(dist).mark_bar().encode(
+    x="event_type", y="count", color="event_type"
+)
 ```
 
-### Claim timeline
+/// ## Citation churn over time
+
+/// Filter to citation events and count by month.
 
 ```python
-claim_events = df[df['event_type'].str.startswith('sentence_')]
-claim_events['timestamp'] = pd.to_datetime(claim_events['timestamp'])
-claim_events.set_index('timestamp').groupby('event_type').resample('ME').size().unstack(fill_value=0).plot()
+citation_df = df[df["eventType"].str.contains("citation")]
+citation_df["month"] = citation_df["timestamp"].dt.to_period("M")
+churn = citation_df.groupby(["month", "eventType"]).size().reset_index(name="count")
+alt.Chart(churn).mark_line().encode(
+    x="month:T", y="count:Q", color="eventType:N"
+)
 ```
 
-### Citation churn
+/// ## Claim stability scores
+
+/// Events with high revert/edit-cluster counts indicate contested claims.
+/// This chart shows the relative frequency of contested vs stable events.
 
 ```python
-citation_df = df[df['event_type'].str.contains('citation')]
-citation_df['date'] = pd.to_datetime(citation_df['timestamp']).dt.date
-citation_df.groupby(['date', 'event_type']).size().unstack(fill_value=0)
-```
+contested = ["revert_detected", "edit_cluster_detected", "sentence_removed"]
+df["is_contested"] = df["eventType"].isin(contested)
+stable_count = (~df["is_contested"]).sum()
+contested_count = df["is_contested"].sum()
 
-Marimo's reactivity means changing the input file or event filter automatically updates all charts and tables.
-
-## Jupyter
-
-Same analysis pattern works in Jupyter notebooks. Load JSONL, normalize into a DataFrame, and analyze.
-
-## Validation
-
-```python
-print(f"Loaded {len(events)} events")
-print(f"Event types: {df['event_type'].nunique()}")
-print(f"Date range: {df['timestamp'].min()} to {df['timestamp'].max()}")
+pd.DataFrame({"category": ["Stable", "Contested"], "count": [stable_count, contested_count]})
 ```
