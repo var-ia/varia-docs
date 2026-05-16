@@ -15,8 +15,15 @@ const NAV = [
   { title: 'Install',          slug: 'install' },
   { title: 'Concepts',         slug: 'concepts' },
   { title: 'Schema',           slug: 'schema' },
+  { title: 'Events',           slug: 'events' },
   { title: 'CLI',              slug: 'cli' },
   { title: 'SDK',              slug: 'sdk' },
+  { title: 'Depth Levels',     slug: 'depth' },
+  { title: 'Bundles & Manifests', slug: 'bundle-manifest' },
+  { title: 'MCP / AI',         slug: 'mcp' },
+  { title: 'Glossary',         slug: 'glossary' },
+  { title: 'FAQ',              slug: 'faq' },
+  { title: 'Security',         slug: 'security' },
   { title: 'Boundary',         slug: 'boundary' },
   { title: 'Frontier Use Cases', slug: 'frontier-use-cases' },
   {
@@ -80,7 +87,7 @@ function wrapHTML(title, content, currentSlug) {
   <title>${title} — Refract</title>
   <link rel="stylesheet" href="${BASE}style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
-  <meta name="description" content="Refract — Evidence, not truth. What changed?">
+  <meta name="description" content="Refract — the open claim-history layer for public knowledge. Deterministic event stream of claims, sources, and disputes across revision histories.">
 </head>
 <body>
   <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -88,14 +95,14 @@ function wrapHTML(title, content, currentSlug) {
     <aside class="sidebar">
       <div class="sidebar-header">
         <a href="${BASE}" class="brand">Refract</a>
-        <p class="tagline">Evidence, not truth.<br>What changed?</p>
+        <p class="tagline">The open claim-history layer<br>for public knowledge.</p>
       </div>
       <nav class="sidebar-nav">
         ${renderNav(currentSlug)}
       </nav>
       <div class="sidebar-footer">
-        <a href="https://github.com/var-ia/varia" class="sidebar-link">GitHub</a>
-        <a href="https://www.npmjs.com/search?q=%40var-ia" class="sidebar-link">npm packages</a>
+        <a href="https://github.com/refract-org/refract" class="sidebar-link">GitHub</a>
+        <a href="https://www.npmjs.com/org/refract-org" class="sidebar-link">npm packages</a>
       </div>
     </aside>
     <label for="menu-toggle" class="menu-overlay"></label>

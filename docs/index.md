@@ -2,41 +2,67 @@
 
 **Refract reveals how claims change across public revision histories.**
 
-The printing press froze knowledge in editions. Wikipedia made it mutable. Refract
-makes the mutation legible — a deterministic event stream showing where every claim
-came from, what changed, what supported it, what challenged it, when it stabilized,
-and what context altered its meaning.
+```bash
+npx @refract-org/cli analyze "Earth" --depth brief
+```
 
-Machines do not just need more retrieved text. They need provenance, instability,
-disagreement, and temporal change. Refract is the open layer that makes knowledge
-legible to machines: `refract observe`, `refract timeline`, `refract diff`, `refract analyze`.
+Node.js 20+ or Bun 1.2+ · Git 2.x · Any MediaWiki instance
+
+The printing press froze knowledge in editions. Wikipedia made it mutable. Refract makes the mutation legible — a deterministic event stream showing where every claim came from, what changed, what supported it, what challenged it, when it stabilized, and what context altered its meaning.
 
 ## Why Refract?
 
-- **Deterministic by default.** Every run on the same revision range produces identical output. No model, no variance.
-- **Provenance-tagged.** Every event carries revision, section, timestamp, and analyzer identity.
-- **Reusable primitive.** `claim + source + wording + placement + stability + time` — a substrate downstream systems build on, without contaminating.
+| | |
+|---|---|
+| 🔍 **Deterministic** — Same input, same output. Every run byte-for-byte identical. No model, no variance. | ⚙️ **Provenance-tagged** — Every event carries revision, section, timestamp, and analyzer identity. |
+| 🔐 **Configurable heuristics** — Every threshold is a BYO-inference boundary. Plug a model where you need one; the defaults work offline. | 📊 **26 event types** — Sentence lifecycle, citations, templates, reverts, sections, categories, wikilinks, talk pages, clusters, protection changes. |
+| 🔧 **Merkle-provable** — Signed bundles and replay manifests for audit trail integrity. | 🧩 **Pluggable architecture** — Swap analyzers and storage without changing the core pipeline. |
+
+## Quick start
+
+```bash
+# 1. Install (zero install also works via npx)
+npx @refract-org/cli analyze "Earth" --depth brief
+
+# 2. Explore results in the web UI
+refract explore "Earth"
+
+# 3. Export as structured data
+refract export "Earth" --format ndjson > earth-events.jsonl
+
+# 4. Save as a signed evidence bundle
+refract export "Earth" --bundle > earth-bundle.json
+
+# 5. Output an ObservationReport with claim lifecycle
+refract analyze "Earth" --report > earth-report.json
+```
+
+## What Refract does not do
+
+- No model interpretation — semantic analysis of what a change means is handled by downstream systems
+- No truth claims — Refract reports what changed, not whether the change is accurate
+- No prediction, sentiment analysis, or editor scoring
+- No claims about compliance, policy violations, or decision relevance
 
 ## Contents
 
-- [Quick start](quickstart.md)
 - [Install](install.md)
 - [Concepts](concepts.md)
-- [Event schema reference](schema.md)
-- [Event taxonomy](events.md)
 - [CLI command reference](cli.md)
 - [SDK / package reference](sdk.md)
+- [Event schema reference](schema.md)
+- [Event taxonomy](events.md)
 - [Analysis depth levels](depth.md)
 - [Export formats: bundles and manifests](bundle-manifest.md)
 - [MCP: AI agent integration](mcp.md)
-- [Naming conventions](naming.md)
+- [Tutorials](tutorials/wikipedia-history.md)
 - [Glossary](glossary.md)
 - [Troubleshooting / FAQ](faq.md)
 - [Security](security.md)
-- [Tutorials](tutorials/wikipedia-history.md)
+- [Naming conventions](naming.md)
 - [Boundary](boundary.md)
 - [Frontier use cases](frontier-use-cases.md)
 
-## Open source
+## License
 
-Refract is open source under AGPL-3.0. Built and maintained by [NextConsensus](https://nextconsensus.com).
+AGPL-3.0. Built and maintained by [NextConsensus](https://nextconsensus.com).
