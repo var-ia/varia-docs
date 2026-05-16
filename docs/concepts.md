@@ -122,9 +122,7 @@ Refract builds on research in peer production, computational social science, and
 ### Content dynamics and claim evolution
 
 - **Adler, de Alfaro, Pye, & Raman (2008)** — *Measuring Author Contributions to the Wikipedia*. WikiWho system for sentence-level authorship attribution. Refract differs by tracking sentence *lifecycle* rather than who wrote it.
-- **Jurgens & Lu (2012)** — *Temporal Analysis of Wikipedia Article Evolution*. CMU technical report. Quantitative analysis of how Wikipedia articles change over time.
-- **Youyou, Lazer, & Wu (2020)** — *Dynamics of Knowledge: Wikipedia's Evolving Epistemic Landscape*. PNAS. Studies how knowledge claims stabilize, shift, or disappear across revision history.
-- **Ferschke, Gurevych, & Rittberger (2012)** — *The Impact of Topic Bias on Quality Flaw Detection in Wikipedia*. Proceedings of *Web of Linked Entities*. Analyzes how template placement correlates with content quality.
+- **Ferschke, Gurevych, & Rittberger (2013)** — *The Impact of Topic Bias on Quality Flaw Prediction in Wikipedia*. Proceedings of ACL. Analyzes how cleanup templates correlate with content quality and how topic bias affects quality assessment.
 
 ### Provenance and evidence infrastructure
 
