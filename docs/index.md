@@ -54,6 +54,7 @@ refract analyze "Earth" --report > earth-report.json
 - [Event taxonomy](events.md)
 - [Analysis depth levels](depth.md)
 - [Export formats: bundles and manifests](bundle-manifest.md)
+- [Downstream integration](downstream.md)
 - [MCP: AI agent integration](mcp.md)
 - [Tutorials](tutorials/wikipedia-history.md)
 - [Glossary](glossary.md)
