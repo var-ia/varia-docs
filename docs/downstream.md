@@ -119,3 +119,76 @@ Refract pairs naturally with these modern tools. The event stream is standard JS
 | **Local inference** | WebGPU, MLX, llama.cpp | Run detection models directly on-device — no API key needed. Refract defaults are mechanical (zero inference), but any boundary can be replaced with a local model via MCP sampling or Ollama. |
 | **Notebooks** | Jupyter, Marimo, Observable notebooks | Load event JSONL into a DataFrame: `pd.read_json("events.jsonl", lines=True)`. Analyze claim stability, citation churn, and edit cluster patterns interactively. Marimo's reactive runtime is particularly well-suited for live event stream analysis. |
 | **Serverless** | Cloudflare Workers, D1, R2, Queues | Run `refract` via `npx` in a Worker, store structured events in D1, export to R2, queue re-observations. The entire infrastructure is edge-deployable with no servers to manage. |
+
+## Production ingestion
+
+When consuming Refract events in a production pipeline, persist them to a queryable table. The schema below is a reference DDL that works with any relational database (D1, PostgreSQL, SQLite):
+
+```sql
+CREATE TABLE refract_events (
+    event_id TEXT PRIMARY KEY,
+    event_type TEXT NOT NULL,
+    schema_version TEXT NOT NULL,
+    from_revision_id INTEGER NOT NULL,
+    to_revision_id INTEGER NOT NULL,
+    section TEXT NOT NULL,
+    fact TEXT NOT NULL,
+    fact_detail TEXT,
+    analyzer_name TEXT,
+    analyzer_version TEXT,
+    input_hashes TEXT,       -- JSON array of input hashes
+    parameters_json TEXT,    -- JSON: effective FactProvenance parameters
+    observed_at TEXT NOT NULL,
+    batch_id TEXT NOT NULL,
+    page_title TEXT NOT NULL,
+    entity_id TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX idx_refract_events_batch ON refract_events(batch_id);
+CREATE INDEX idx_refract_events_type ON refract_events(event_type);
+CREATE INDEX idx_refract_events_page ON refract_events(page_title);
+CREATE INDEX idx_refract_events_observed ON refract_events(observed_at);
+```
+
+### Repository pattern
+
+Use a single adapter file as the import boundary between Refract and your codebase. The adapter re-exports Refract functions and types; no other file imports from `@refract-org/*` directly.
+
+```typescript
+// adapter.ts — single import boundary
+export type { EvidenceEvent, FactProvenance, AnalyzerConfig } from '@refract-org/evidence-graph';
+export { EVENT_SCHEMA_VERSION, DEFAULT_ANALYZER_CONFIG, createEventIdentity } from '@refract-org/evidence-graph';
+export { sectionDiffer, citationTracker, revertDetector, detectEditClusters } from '@refract-org/analyzers';
+export { buildStructuredEvents } from '../adapter/build-events';
+
+// repository.ts — D1 insert
+export async function insertRefractEvents(
+  db: D1Database,
+  events: EvidenceEvent[],
+  batchId: string,
+  pageTitle: string,
+): Promise<number> {
+  let count = 0;
+  for (const event of events) {
+    const fact = event.deterministicFacts?.[0];
+    await db.prepare(`
+      INSERT OR IGNORE INTO refract_events (...) VALUES (...)
+    `).bind(/* event fields */).run();
+    count++;
+  }
+  return count;
+}
+```
+
+### Migration guide (0.3.x → 0.4.x)
+
+When upgrading from `@refract-org/evidence-graph@0.3.x` to `0.4.x`:
+
+1. Add `"sentence_modified"` to any `EventType` whitelists in your code
+2. The `FactProvenance` interface now has an optional `parameters` field — consumers that read it gain provenance transparency but are not required to
+3. The `EVENT_SCHEMA_VERSION` constant (`"0.4.0"`) and `CLAIM_IDENTITY_VERSION` (`"claimidentityv1"`) are new exports
+4. Every event now carries `schemaVersion` — verify your DDL can store this field
+5. `AnalyzerConfig` now supports `$version` for config pinning — optional, no migration action needed
+
+See the [version compatibility table](schema#version-compatibility) for the full matrix.

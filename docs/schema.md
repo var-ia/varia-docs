@@ -148,3 +148,19 @@ export function createEventIdentity(
 ```
 
 The hash is truncated to 16 hex characters (64 bits of collision resistance).
+
+## Version compatibility
+
+When consuming Refract events across different package versions, the `schemaVersion` field on each event tells you which schema produced it.
+
+| refract CLI | `@refract-org/evidence-graph` | `EVENT_SCHEMA_VERSION` | Key changes |
+|------------|------------------------------|-----------------------|-------------|
+| 0.5.x | 0.4.x | `"0.4.0"` | `sentence_modified` event type, `FactProvenance.parameters`, `AnalyzerConfig`, `EVENT_SCHEMA_VERSION`, `CLAIM_IDENTITY_VERSION` |
+| 0.4.x | 0.3.x | `"0.3.0"` | ClaimLedger, ObservationReport, `--report` flag, cron merging |
+| 0.3.x | 0.2.x | `"0.2.0"` | 25 event types, initial public release |
+
+**Negotiation rules:**
+- Consumers SHOULD accept events with the same minor schema version (0.4.x)
+- Consumers MAY accept events across minor versions if they handle unknown `EventType` members gracefully (skip unrecognized types, log, preserve)
+- Consumers MUST NOT silently drop events with unrecognized event types — log them and preserve the raw data
+- When `schemaVersion` is missing, assume the most recent compatible schema for the consuming package version
