@@ -2,7 +2,7 @@
 
 **Claim** — A distinct statement of fact within an article, identified by its text content. Claims are tracked across revisions via `createClaimIdentity` in `@refract-org/evidence-graph`. Not to be confused with "claim" in a legal or insurance context.
 
-**Configurable heuristics** — Every analyzer threshold (revert patterns, edit cluster window, talk spike factor, sentence similarity, section rename mode) accepts an optional override via `AnalyzerConfig`. When overridden, the effective parameters are recorded in `FactProvenance.parameters`, making the interpretive choice transparent and auditable.
+**BYO-inference boundary** — A point in the pipeline where a heuristic (e.g., regex revert detection, word-overlap threshold) can be replaced by a model call. Each boundary is a typed function signature with a mechanical default. When a model is plugged in, the event's `FactProvenance.parameters` records which path was taken. This is the architectural spine: Refract stays mechanical, but the points where judgment enters are explicit, typed, and auditable.
 
 **Deterministic fact** — A structured statement produced by an analyzer explaining why an event was emitted. Each fact includes the analyzer name, version, input hashes for reproducibility, and optional effective parameters (when non-default config was used).
 

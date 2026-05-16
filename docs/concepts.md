@@ -59,11 +59,23 @@ The pipeline can also produce an `ObservationReport` — a structured aggregate 
 
 See [schema.md](schema.md) for the full reference.
 
-## Configurable heuristics
+## Configurable heuristics / BYO-inference boundaries
 
 Every analyzer threshold encodes an interpretive judgment — what counts as a revert, how close edits must be to form a cluster, what sentence similarity means "modified" vs "removed and added." These thresholds accept optional overrides via `AnalyzerConfig`, and the effective parameters are recorded in `FactProvenance.parameters` when non-default values are used.
 
-This means consumers can tune Refract for their domain (fandom vs Wikipedia vs regulatory monitoring) and the exact parameters used are transparent in every event's provenance. The defaults work offline with no configuration required.
+Each threshold is a **BYO-inference boundary** — a typed function signature where a model can replace the default heuristic:
+
+| Boundary | Default (mechanical) | Pluggable (model) |
+|----------|----------------------|--------------------|
+| Sentence similarity | Word-overlap ratio (0.8) | "Are these two sentences the same claim?" |
+| Revert detection | 6 regex patterns | "Is this edit comment a revert?" |
+| Template classification | Name-to-type lookup | "What policy signal does this template represent?" |
+| Edit cluster detection | Time window + min size | "Are these edits semantically related?" |
+| Heuristic classification | Size thresholds + comment patterns | "What kind of edit is this?" |
+
+The defaults work offline with no configuration required. Consumers supply a model at any boundary, and the event's `FactProvenance.parameters` records the path taken — `similaritySource: "model"` or `"default"` — keeping the audit trail transparent regardless.
+
+This is the architectural spine: Refract stays purely mechanical, but the boundaries where judgment enters are explicit, typed, and versioned. Foundation model improvements automatically benefit consumers without Refract changing.
 
 ## Two-knowledge split
 
