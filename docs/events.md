@@ -50,7 +50,7 @@ Each Refract event describes what changed at a revision boundary. Events are det
 | Event type | Trigger |
 |---|---|
 | `revert_detected` | Edit summary matches revert pattern (e.g., "revert", "rv", "undo") |
-| `edit_cluster_detected` | 3+ edits within a configurable time window (default: 1 hour) |
+| `edit_cluster_detected` | 3+ edits within a configurable time window (default: 1 hour). **`editorCount`**: number of unique editors in the cluster (no identities recorded) |
 
 ## Talk page activity
 
