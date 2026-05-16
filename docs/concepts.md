@@ -59,6 +59,12 @@ The pipeline can also produce an `ObservationReport` — a structured aggregate 
 
 See [schema.md](schema.md) for the full reference.
 
+## Configurable heuristics
+
+Every analyzer threshold encodes an interpretive judgment — what counts as a revert, how close edits must be to form a cluster, what sentence similarity means "modified" vs "removed and added." These thresholds accept optional overrides via `AnalyzerConfig`, and the effective parameters are recorded in `FactProvenance.parameters` when non-default values are used.
+
+This means consumers can tune Refract for their domain (fandom vs Wikipedia vs regulatory monitoring) and the exact parameters used are transparent in every event's provenance. The defaults work offline with no configuration required.
+
 ## Two-knowledge split
 
 Refract separates mechanical observation from human judgment:

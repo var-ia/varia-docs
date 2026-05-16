@@ -2,11 +2,15 @@
 
 **Claim** — A distinct statement of fact within an article, identified by its text content. Claims are tracked across revisions via `createClaimIdentity` in `@refract-org/evidence-graph`. Not to be confused with "claim" in a legal or insurance context.
 
-**Deterministic fact** — A structured statement produced by an analyzer explaining why an event was emitted. Each fact includes the analyzer name, version, and input hashes for reproducibility.
+**Configurable heuristics** — Every analyzer threshold (revert patterns, edit cluster window, talk spike factor, sentence similarity, section rename mode) accepts an optional override via `AnalyzerConfig`. When overridden, the effective parameters are recorded in `FactProvenance.parameters`, making the interpretive choice transparent and auditable.
+
+**Deterministic fact** — A structured statement produced by an analyzer explaining why an event was emitted. Each fact includes the analyzer name, version, input hashes for reproducibility, and optional effective parameters (when non-default config was used).
 
 **Deterministic observation engine** — Refract's core design: given the same revision range, the same events are always produced. No model, no randomness, no variance.
 
 **Downstream consumer** — A system that consumes Refract's event stream without modifying it. NextConsensus is a downstream consumer that attaches model interpretation.
+
+**Edit cluster** — A group of 3+ edits within a configurable time window, detected by `detectEditClusters()`. High cluster activity signals concentrated contestation — the same claim being edited repeatedly by one or more editors. Window size and minimum group size are configurable via `AnalyzerConfig`.
 
 **Event** — A unit of change between two revisions. Every event has an `eventType`, revision range (`fromRevisionId` → `toRevisionId`), section context, before/after snapshots, and deterministic facts. See [schema](schema.md).
 

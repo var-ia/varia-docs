@@ -57,12 +57,11 @@ Key exports:
 - Types: `EventType`, `EvidenceLayer`, `PolicyDimension`, `Depth`, `AnalyzerConfig`
 - Utilities: `createClaimIdentity`, `createEventIdentity`
 - Merkle tree: `createReplayManifest`, `buildMerkleTree`, `getMerkleProof`, `verifyMerkleProof`
-- `FactProvenance.parameters`: optional record of analyzer parameters (strings, numbers, booleans)
-- `AnalyzerConfig`: configurable thresholds and windows for analyzers (similarity, time windows, revert patterns, etc.)
-- BYOI (bring your own inference):
-  - `buildInterpretationPrompt(events, pageTitle)` — format events into a structured prompt for any LLM
-  - `parseInterpretationResponse(text)` — parse LLM output back into typed `ModelInterpretation[]`
-  - `ModelInterpretationSchema` — JSON Schema for `response_format: json_schema`
+- `AnalyzerConfig`: configurable thresholds and windows for analyzers — similarity threshold for sentence matching, time windows for clusters and talk correlation, revert patterns, spike factors. Consumers pass their own config at each boundary; Refract records the effective parameters in `FactProvenance.parameters`.
+- `DEFAULT_ANALYZER_CONFIG`: frozen default values for all configurable parameters
+- `FactProvenance.parameters`: optional record of analyzer parameters (strings, numbers, booleans) — set when non-default config is used, enabling transparent provenance
+
+No prompt engineering, no interpretation schema — consumers define their own taxonomy at each configurable boundary.
 
 ### `@refract-org/ingestion`
 
@@ -99,7 +98,22 @@ import { sectionDiffer, citationTracker, revertDetector, templateTracker } from 
 import type { SectionDiffer, CitationTracker, RevertDetector, TemplateTracker } from "@refract-org/analyzers";
 ```
 
-All L1 analyzers share a common pattern — extract from wikitext, diff across revisions, produce `EvidenceEvent` arrays.
+All analyzers share a common pattern — extract from wikitext, diff across revisions, produce `EvidenceEvent` arrays. Every analyzer accepts an optional `AnalyzerConfig` — thresholds, patterns, and windows that can be tuned per domain. The effective config is recorded in each event's `FactProvenance.parameters` when non-default values are used.
+
+```typescript
+import { sectionDiffer, citationTracker, revertDetector, templateTracker, detectEditClusters } from "@refract-org/analyzers";
+import type { SectionDiffer, CitationTracker, RevertDetector, TemplateTracker } from "@refract-org/analyzers";
+import type { AnalyzerConfig } from "@refract-org/evidence-graph";
+
+// Configure per-domain thresholds
+const config: AnalyzerConfig = {
+  section: { similarityThreshold: 0.8 },
+  editCluster: { windowMs: 30 * 60 * 1000, minSize: 2 },
+};
+
+// Pass alongside standard calls
+const changes = sectionDiffer.diffSections(before, after, config.section);
+```
 
 Key exports:
 - Instances: `sectionDiffer`, `citationTracker`, `revertDetector`, `templateTracker`, `protectionTracker`
