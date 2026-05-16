@@ -50,7 +50,17 @@ Opens a local web server (default port 8899) with a timeline view, evidence tabl
 refract export "Earth" --format ndjson > earth-events.jsonl
 ```
 
-Use `refract export` to format output as json, csv, ndjson, html, a signed bundle (`--bundle`), or a replay manifest (`--manifest`).
+Use `refract export` to format output as json, csv, ndjson, html, a signed bundle (`--bundle`), or a replay manifest (`--manifest`). Add `--flatten` to produce flat column-oriented CSV suitable for analytical tools.
+
+## Classify events with a model
+
+```bash
+# Default: mechanical heuristic
+refract classify revert --input '{"comment":"revert vandalism"}'
+
+# With API key: uses configured model
+refract classify revert --input '{"comment":"..."}' --model deepseek-chat
+```
 
 ## Next steps
 

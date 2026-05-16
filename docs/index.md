@@ -49,6 +49,17 @@ refract analyze "Earth" --report > earth-report.json
 - No prediction, sentiment analysis, or editor scoring
 - No claims about compliance, policy violations, or decision relevance
 
+## By use case
+
+| You are | Start here |
+|---------|-----------|
+| **Journalist or researcher** | [Live Demo](demo.md) → [Quick Start](quickstart.md) → [Tutorials](tutorials/wikipedia-history.md) |
+| **Data scientist or OSINT analyst** | [Analytics with DuckDB](analytics.md) → [Notebook analysis](notebooks.md) → [Export with --flatten](quickstart.md) |
+| **ML engineer building RAG** | [Downstream integration](downstream.md) → [Python SDK](https://github.com/refract-org/refract-py) → [LangChain loader](https://github.com/refract-org/refract-py/blob/main/src/refract_langchain.py) |
+| **Regulatory or policy monitor** | [CLI cron](cli.md) → [GitHub Actions observe workflow](https://github.com/refract-org/refract) → [Tutorial: Citation churn](tutorials/citation-churn.md) |
+| **AI agent developer** | [MCP / AI integration](mcp.md) → [BYO-inference boundaries](concepts.md) → [Classify command](cli.md) |
+| **System integrator** | [SDK reference](sdk.md) → [Production DDL](downstream.md) → [Version compatibility](schema.md) |
+
 ## Contents
 
 - [Install](install.md)
