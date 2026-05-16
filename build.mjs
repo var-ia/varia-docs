@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = join(__dirname, 'docs');
 const DIST_DIR = join(__dirname, 'dist');
 const ASSETS_DIR = join(__dirname, 'assets');
-const BASE = process.env.BASE || '/varia-docs/';
+const BASE = process.env.BASE || '/refract-docs/';
 
 const NAV = [
   { title: 'Home',             slug: 'index' },
