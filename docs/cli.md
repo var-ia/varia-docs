@@ -109,10 +109,27 @@ refract classify <boundary> --input '<json>'
 |------|---------|-------------|
 | `--input <json>` | — | Input data as JSON string |
 | `--api-key <key>` | env `REFRACT_INFERENCE_API_KEY` | API key for inference provider |
-| `--endpoint <url>` | env `REFRACT_INFERENCE_ENDPOINT` | OpenAI-compatible endpoint |
+| `--endpoint <url>` | env `REFRACT_INFERENCE_ENDPOINT` | OpenAI-compatible endpoint (OpenAI, DeepSeek, Ollama, etc.) |
 | `--model <name>` | `gpt-4o-mini` | Model name |
 
-Each boundary's default is the mechanical heuristic. Pass an API key or set `REFRACT_INFERENCE_API_KEY` to call a model instead. The output includes `source: "model"` or `"default"` for auditability.
+Each boundary's default is the mechanical heuristic. Pass an API key or set `REFRACT_INFERENCE_API_KEY` to call a model instead. Works with any OpenAI-compatible provider — DeepSeek, Ollama, Anthropic, Together, Anyscale, or local servers.
+
+```bash
+# OpenAI
+refract classify revert --input '{"comment":"reverted vandalism"}'
+
+# DeepSeek
+refract classify revert --input '{"comment":"..."}' \
+  --endpoint https://api.deepseek.com/v1/chat/completions \
+  --model deepseek-chat
+
+# Local Ollama
+refract classify revert --input '{"comment":"..."}' \
+  --endpoint http://localhost:11434/v1/chat/completions \
+  --model llama3
+```
+
+The output includes `source: "model"` or `"default"` for auditability.
 
 ## `refract export`
 
